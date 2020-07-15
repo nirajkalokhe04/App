@@ -3,6 +3,7 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,22 +26,22 @@ public class ItemController {
 	
 	@GetMapping("/category")
 	public ResponseEntity<List<Category>> getAllCategories(){
-		return null;
+		return new ResponseEntity<List<Category>>(itemService.getAllCategories(), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/category")
 	public ResponseEntity<String> addCategory(@RequestBody Category category){
-		return null;
+		return  new ResponseEntity<String>(itemService.addCategory(category), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/category/{categoryId}")
 	public ResponseEntity<String> updateCategory(@PathVariable String categoryId, @RequestBody Category category){
-		return null;
+		return new ResponseEntity<String>(itemService.updateCategory(categoryId, category),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/category/{categoryId}")
 	public ResponseEntity<String> deleteCategory(@PathVariable String categoryId){
-		return null;
+		return new ResponseEntity<String>(itemService.deleteCategory(categoryId),HttpStatus.OK);
 	}
 	
 	// Sub-Category
