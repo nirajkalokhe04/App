@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.model.Order;
+import com.ecommerce.model.Orders;
 import com.ecommerce.service.OrderService;
 
 @RestController
@@ -22,17 +22,17 @@ public class OrderController {
 	OrderService orderService;
 	
 	@GetMapping("/orders")
-	public ResponseEntity<List<Order>> getAllOrders(){
+	public ResponseEntity<List<Orders>> getAllOrders(){
 		return null;
 	}
 	
 	@PostMapping("/orders")
-	public ResponseEntity<String> addOrder(@RequestBody Order order){
+	public ResponseEntity<String> addOrder(@RequestBody Orders order){
 		return null;
 	}
 	
 	@PutMapping("/orders/{orderId}")
-	public ResponseEntity<String> updateOrder(@PathVariable String orderId, @RequestBody Order order){
+	public ResponseEntity<String> updateOrder(@PathVariable String orderId, @RequestBody Orders order){
 		return null;
 	}
 	
