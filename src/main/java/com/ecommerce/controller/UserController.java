@@ -3,6 +3,7 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> verifyLogin(@RequestBody String requestData){
-		return null;
+	public ResponseEntity<HttpStatus> verifyLogin(@RequestBody String requestData){
+		return new ResponseEntity<HttpStatus>(userService.verifyLogin(requestData),HttpStatus.OK);
 	}
 	
 	@PostMapping("/forgotpassword")
@@ -33,26 +34,26 @@ public class UserController {
 	
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers(){
-		return null;
+		return new ResponseEntity<List<User>>(userService.getAllUsers(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/{userId}")
 	public ResponseEntity<User> getUser(@PathVariable String userId){
-		return null;
+		return new ResponseEntity<User>(userService.getUserById(userId),HttpStatus.OK);
 	}
 	
 	@PostMapping("/users")
 	public ResponseEntity<String> addUser(@RequestBody User user){
-		return null;
+		return new ResponseEntity<String>(userService.addUser(user),HttpStatus.ACCEPTED);
 	}
 	
 	@PutMapping("/users/{userId}")
 	public ResponseEntity<String> updateUser(@PathVariable String userId, @RequestBody User user){
-		return null;
+		return new ResponseEntity<String>(userService.updateUser(userId, user),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/users/{userId}")
 	public ResponseEntity<String> deleteUser(@PathVariable String userId){
-		return null;
+		return new ResponseEntity<String>(userService.deleteUser(userId),HttpStatus.OK);
 	}
 }
