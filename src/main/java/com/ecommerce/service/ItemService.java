@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecommerce.model.Category;
+import com.ecommerce.model.Categorys;
 import com.ecommerce.model.Item;
 import com.ecommerce.model.SubCategory;
 import com.ecommerce.repository.CategoryRepository;
@@ -24,13 +24,13 @@ public class ItemService {
 	@Autowired
 	ItemRepository itemRepository;
 
-	public String addCategory(Category category) {
+	public String addCategory(Categorys category) {
 		String returnStr = "Category added sucessfully.";
 		categoryRepository.save(category);
 		return returnStr;
 	}
 	
-	public String updateCategory(String categoryId,Category category) {
+	public String updateCategory(String categoryId,Categorys category) {
 		String returnStr = "Category updated sucessfully.";
 		 categoryRepository.save(category);
 		 return returnStr;
@@ -42,7 +42,7 @@ public class ItemService {
 		 return returnStr;
 	}
 	
-	public List<Category> getAllCategories() {
+	public List<Categorys> getAllCategories() {
 		return categoryRepository.findAll();
 	}
 	

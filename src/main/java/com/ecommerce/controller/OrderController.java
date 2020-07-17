@@ -3,6 +3,7 @@ package com.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +24,12 @@ public class OrderController {
 	
 	@GetMapping("/orders")
 	public ResponseEntity<List<Orders>> getAllOrders(){
-		return null;
+		return new ResponseEntity<List<Orders>>(orderService.getAllOrders(),HttpStatus.OK);
 	}
 	
 	@PostMapping("/orders")
 	public ResponseEntity<String> addOrder(@RequestBody Orders order){
-		return null;
+		return new ResponseEntity<String>(orderService.addOrder(order),HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/orders/{orderId}")

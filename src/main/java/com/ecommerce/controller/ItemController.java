@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.model.Category;
+import com.ecommerce.model.Categorys;
 import com.ecommerce.model.Item;
 import com.ecommerce.model.SubCategory;
 import com.ecommerce.service.ItemService;
@@ -25,17 +25,17 @@ public class ItemController {
 	ItemService itemService;
 	
 	@GetMapping("/category")
-	public ResponseEntity<List<Category>> getAllCategories(){
-		return new ResponseEntity<List<Category>>(itemService.getAllCategories(), HttpStatus.ACCEPTED);
+	public ResponseEntity<List<Categorys>> getAllCategories(){
+		return new ResponseEntity<List<Categorys>>(itemService.getAllCategories(), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/category")
-	public ResponseEntity<String> addCategory(@RequestBody Category category){
+	public ResponseEntity<String> addCategory(@RequestBody Categorys category){
 		return  new ResponseEntity<String>(itemService.addCategory(category), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/category/{categoryId}")
-	public ResponseEntity<String> updateCategory(@PathVariable String categoryId, @RequestBody Category category){
+	public ResponseEntity<String> updateCategory(@PathVariable String categoryId, @RequestBody Categorys category){
 		return new ResponseEntity<String>(itemService.updateCategory(categoryId, category),HttpStatus.OK);
 	}
 	
@@ -52,7 +52,7 @@ public class ItemController {
 	}
 	
 	@PostMapping("/subcategory")
-	public ResponseEntity<String> addSubCategory(@RequestBody Category category){
+	public ResponseEntity<String> addSubCategory(@RequestBody Categorys category){
 		return null;
 	}
 	
