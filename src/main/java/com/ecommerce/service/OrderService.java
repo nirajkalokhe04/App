@@ -19,14 +19,11 @@ public class OrderService {
 	OrderDetailRepository orderDetailRepository;
 
 	public String addOrder(Orders order) {
-		// TODO Auto-generated method stub
 		order = orderRepository.save(order);
 		return order.getId();
 	}
 
 	public List<Orders> getAllOrders() {
-		// TODO Auto-generated method stub
-		
 		return orderRepository.findAll();
 	}
 }

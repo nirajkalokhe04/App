@@ -2,8 +2,10 @@ package com.ecommerce.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "state")
 public class State {
 
 	@Id

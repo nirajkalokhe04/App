@@ -7,32 +7,37 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name = "orders")
 public class Orders implements Serializable {
 
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(name="id")
 	private String id;
-	private String userId;
 	private Integer status;
 	private Integer isDeleted;
 	private Integer isDeletedFromCustomer;
 	private Double totalAmount;
 	private Date orderedOn;
-//	@OneToOne
-//	private Address addressId;
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@ManyToOne
+	private User userId;
+	@ManyToOne
+	private Address addressId;
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "order", referencedColumnName = "id", nullable = false)
 	private Set<OrderDetail> orderDetail;
-
 	
 	public Set<OrderDetail> getOrderDetail() {
 		return orderDetail;
@@ -50,12 +55,20 @@ public class Orders implements Serializable {
 		this.id = id;
 	}
 
-	public String getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
+	}
+
+	public Address getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Address addressId) {
+		this.addressId = addressId;
 	}
 
 	public Integer getStatus() {
