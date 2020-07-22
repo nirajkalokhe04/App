@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +9,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.ecommerce.util.Constants;
+
 @Entity
 @Table(name = "address")
 public class Address {
@@ -15,6 +18,7 @@ public class Address {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(columnDefinition =  Constants.VARCHAR_16)
 	private String id;
 	private String address;
 	private String userId;

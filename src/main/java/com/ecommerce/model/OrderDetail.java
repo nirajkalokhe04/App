@@ -1,6 +1,7 @@
 package com.ecommerce.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,19 +13,22 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.ecommerce.util.Constants;
+
 @Entity
 @Table(name = "orderdetail")
 public class OrderDetail {
 
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	@Column(columnDefinition = Constants.VARCHAR_32)
 	private String id;
 	@OneToOne
 	private Item item;
 	private double price;
 	private double quantity;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Orders order;
 

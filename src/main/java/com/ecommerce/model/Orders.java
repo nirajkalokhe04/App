@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.ecommerce.util.Constants;
+
 @Entity
 @Table(name = "orders")
 public class Orders implements Serializable {
@@ -25,6 +27,7 @@ public class Orders implements Serializable {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
 	private Integer status;
 	private Integer isDeleted;

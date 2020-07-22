@@ -1,0 +1,27 @@
+@POST
+/subcategory
+{
+"subcategotryName" :"Leafy Vegitables",
+"subcategoryDescription":"Green vegitables",
+"isActive":TRUE,
+"categoryId":"402881f2737830d9017378316fdb0000"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@GET
+/subcategory
+
+[
+  {
+    "category": {
+      "categoryDescription": "string",
+      "categoryName": "string",
+      "id": "string",
+      "isActive": true
+    },
+    "id": "string",
+    "isActive": "string",
+    "subcategoryDescription": "string",
+    "subcategotryName": "string"
+  }
+]

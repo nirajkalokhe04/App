@@ -1,0 +1,21 @@
+
+@POST
+/category
+
+{
+  "categoryDescription": "All Types of Vegitables",
+  "categoryName": "Vegitable",
+  "isActive": true
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@GET
+/category
+[
+  {
+    "id": "402881f2737830d9017378316fdb0000",
+    "categoryName": "Vegitable",
+    "categoryDescription": "All Types of Vegitables",
+    "isActive": true
+  }
+]

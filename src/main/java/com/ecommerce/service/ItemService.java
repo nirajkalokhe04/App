@@ -56,7 +56,7 @@ public class ItemService {
 		String returnStr = "Subcategory added sucessfully.";
 		
 		SubCategory subCategory = new SubCategory();
-		subCategory.setName(subCategoryJson.optString("name"));
+		subCategory.setSubcategotryName(subCategoryJson.optString("name"));
 		System.out.println(subCategoryJson);
 		Category category = categoryRepository.findById(subCategoryJson.optString("categoryId")).get();
 		subCategory.setCategory(category);
@@ -68,7 +68,7 @@ public class ItemService {
 	public String updateSubCategory(String subCategoryId, JSONObject subCategoryJson) {
 		String returnStr = "Subcategory updated sucessfully.";
 		SubCategory subCategory = subCategoryRepository.findById(subCategoryId).get();
-		subCategory.setName(subCategoryJson.optString("name"));
+		subCategory.setSubcategotryName(subCategoryJson.optString("name"));
 		Category category = categoryRepository.findById(subCategoryJson.optString("categoryId")).get();
 		subCategory.setCategory(category);
 		
@@ -90,8 +90,8 @@ public class ItemService {
 		String returnStr = "Item added sucessfully.";
 		
 		Item item = new Item();
-		item.setName(itemJson.optString("name"));
-		item.setPrice(itemJson.optDouble("price"));
+		item.setItemName(itemJson.optString("name"));
+		item.setRegularPrice(itemJson.optDouble("price"));
 		SubCategory subCategory = subCategoryRepository.findById(itemJson.optString("subCategoryId")).get();
 		item.setSubCategory(subCategory);
 		
@@ -103,17 +103,17 @@ public class ItemService {
 		String returnStr = "Item updated sucessfully.";
 		
 		Item item = itemRepository.findById(itemId).get();
-		item.setName(itemJson.optString("name"));
-		item.setPrice(itemJson.optDouble("price"));
+		item.setItemName(itemJson.optString("name"));
+		item.setRegularPrice(itemJson.optDouble("price"));
 		SubCategory subCategory = subCategoryRepository.findById(itemJson.optString("subCategoryId")).get();
 		item.setSubCategory(subCategory);
 		
 		itemRepository.save(item);
-		 return returnStr;
+		return returnStr;
 	}
 	public String deleteItem(String itemId) {
 		String returnStr = "Item updated sucessfully.";
-		itemRepository.deleteById(itemId);;
+		itemRepository.deleteById(itemId);
 		return returnStr;
 	}
 }

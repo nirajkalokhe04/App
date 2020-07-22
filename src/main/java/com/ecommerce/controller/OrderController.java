@@ -34,7 +34,7 @@ public class OrderController {
 	
 	@PutMapping("/orders/{orderId}")
 	public ResponseEntity<String> updateOrder(@PathVariable String orderId, @RequestBody Orders order){
-		return null;
+		return new ResponseEntity<String>(orderService.updateOrder(orderId, order),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/orders/{orderId}")

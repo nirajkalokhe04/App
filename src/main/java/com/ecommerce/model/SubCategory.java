@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.ecommerce.util.Constants;
+
 @Entity
 @Table(name = "subcategory")
 public class SubCategory {
@@ -17,8 +19,18 @@ public class SubCategory {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
-	private String name;
+	
+	@Column(name ="name", columnDefinition =  Constants.VARCHAR_64)
+	private String subcategotryName;
+	
+	@Column(name ="description", columnDefinition = Constants.VARCHAR_255)
+	private String subcategoryDescription;
+	
+	@Column(name ="isactive", columnDefinition = "BOOLEAN")
+	private String isActive;
+	
 	@ManyToOne
 	@JoinColumn(name = "categoryid")
 	private Category category;
@@ -31,12 +43,28 @@ public class SubCategory {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getSubcategotryName() {
+		return subcategotryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSubcategotryName(String subcategotryName) {
+		this.subcategotryName = subcategotryName;
+	}
+
+	public String getSubcategoryDescription() {
+		return subcategoryDescription;
+	}
+
+	public void setSubcategoryDescription(String subcategoryDescription) {
+		this.subcategoryDescription = subcategoryDescription;
+	}
+
+	public String getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
 	}
 
 	public Category getCategory() {
@@ -46,5 +74,12 @@ public class SubCategory {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+	@Override
+	public String toString() {
+		return "SubCategory [id=" + id + ", subcategotryName=" + subcategotryName + ", subcategoryDescription="
+				+ subcategoryDescription + ", isActive=" + isActive + ", category=" + category + "]";
+	}
 	
+
 }
