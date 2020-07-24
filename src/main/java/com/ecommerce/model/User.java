@@ -23,6 +23,7 @@ public class User {
 	private String lastName;
 	private String contactNo;
 	private String mail;
+	private boolean isDeleted;
 
 	public String getId() {
 		return id;
@@ -62,6 +63,14 @@ public class User {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 }

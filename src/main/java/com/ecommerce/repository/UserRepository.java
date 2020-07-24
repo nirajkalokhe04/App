@@ -8,4 +8,5 @@ import com.ecommerce.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
 
+	
 }

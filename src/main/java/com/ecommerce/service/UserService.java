@@ -1,12 +1,12 @@
 package com.ecommerce.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.exception.UserNotFound;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.UserRepository;
 
@@ -28,10 +28,8 @@ public class UserService {
 	}
 	
 	public User getUserById(String userId) {
-		Optional<User> userResponse =userRepository.findById(userId);
-		User user = userResponse.get(); 
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFound("Requested user is not available."));
 		return user;
-		
 	}
 	
 	public String addUser(User user) {
@@ -40,16 +38,20 @@ public class UserService {
 		return returnStr;
 	}
 	
-	public String updateUser(String userId,User user) {
+	public String updateUser(String userId, User user) {
 		String returnStr = "User updated successfully.";
-		userRepository.save(user);
+		userRepository.findById(userId).map(userObj -> { user.setId(userId); return userRepository.save(user);})
+				.orElseThrow(() -> new UserNotFound("User not found."));
 		return returnStr;
 	}
 	
 	public String deleteUser(String userId) {
-		String returnStr = "User deleted successfully.";
-		userRepository.deleteById(userId);;
-		return returnStr;
+		String returnStr = "";
+		userRepository.findById(userId).ifPresent(user -> {
+			user.setDeleted(true);
+			userRepository.save(user);
+		});
+		return returnStr = "User deleted.";
 	}
 	
 }
