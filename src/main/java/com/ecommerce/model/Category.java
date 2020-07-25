@@ -1,12 +1,9 @@
 package com.ecommerce.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,8 +29,8 @@ public class Category {
 	@Column(name = "isactive" , columnDefinition = "BOOLEAN")
 	private Boolean isActive;
 	
-	@OneToMany(mappedBy = "category")
-	private Set<SubCategory> subCategory;
+	@Column(name="subcategory_id")
+	private String subCategory;
 
 	public String getId() {
 		return id;
@@ -67,13 +64,8 @@ public class Category {
 		this.isActive = isActive;
 	}
 
-	public Set<SubCategory> getSubCategory() {
-		return subCategory;
-	}
 
-	public void setSubCategory(Set<SubCategory> subCategory) {
-		this.subCategory = subCategory;
-	}
+
 
 	@Override
 	public String toString() {

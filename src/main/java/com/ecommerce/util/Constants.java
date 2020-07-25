@@ -8,4 +8,6 @@ public class Constants {
 	public final static String VARCHAR_64 = "VARCHAR(64)";
 	public final static String VARCHAR_128 = "VARCHAR(128)";
 	public final static String VARCHAR_255 = "VARCHAR(255)";
+	public final static String DOUBLE = "DOUBLE";
+
 }

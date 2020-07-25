@@ -11,28 +11,20 @@ import org.hibernate.annotations.GenericGenerator;
 import com.ecommerce.util.Constants;
 
 @Entity
-@Table(name="offers")
-public class Offers {
-
+@Table(name="offerdetails") 
+public class OfferDetails {
 	
 	@Id	
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(columnDefinition =  Constants.VARCHAR_32 )
 	private String id; 
-
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name="itemId",columnDefinition = Constants.VARCHAR_16) private
-	 * String itemId;
-	 */
 	
-	@Column(name="name",columnDefinition = Constants.VARCHAR_32)
-	private String offerName;
+	@Column(name="offerid",columnDefinition =  Constants.VARCHAR_32 )
+	private String offerId; 
 	
-	@Column(name="type", columnDefinition = "INT")
-	private Integer offerType;
+	@Column(name="itemid",columnDefinition =  Constants.VARCHAR_32)
+	private String itemId;
 	
 	@Column(name="isactive",columnDefinition = "BOOLEAN")
 	private Boolean isActive;
@@ -45,20 +37,20 @@ public class Offers {
 		this.id = id;
 	}
 
-	public String getOfferName() {
-		return offerName;
+	public String getOfferId() {
+		return offerId;
 	}
 
-	public void setOfferName(String offerName) {
-		this.offerName = offerName;
+	public void setOfferId(String offerId) {
+		this.offerId = offerId;
 	}
 
-	public Integer getOfferType() {
-		return offerType;
+	public String getItemId() {
+		return itemId;
 	}
 
-	public void setOfferType(Integer offerType) {
-		this.offerType = offerType;
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 
 	public Boolean getIsActive() {
@@ -71,10 +63,10 @@ public class Offers {
 
 	@Override
 	public String toString() {
-		return "Offers [id=" + id + ", offerName=" + offerName + ", offerType=" + offerType + ", isActive=" + isActive
+		return "OfferDetails [id=" + id + ", offerId=" + offerId + ", itemId=" + itemId + ", isActive=" + isActive
 				+ "]";
 	}
-	
+
 	
 	
 }

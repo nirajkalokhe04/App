@@ -21,22 +21,31 @@ public class Item {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
+	
 	@Column(name="name", columnDefinition = Constants.VARCHAR_64)
 	private String itemName;
+	
 	@Column(name="description", columnDefinition = Constants.VARCHAR_255)
 	private String itemDescription;
+	
 	@Column(name="price")
 	private double regularPrice;
+	
 	@Column(name="saleprice")
 	private double salePrice;
+	
 	@Column(name="isavailable", columnDefinition = "Boolean")
 	private Boolean isAvailable;
+	
 	@Column(name="istaxable", columnDefinition = "Boolean")
 	private Boolean isTaxable;
+	
 	@OneToOne
 	@JoinColumn(name = "subcategoryid")
 	private SubCategory subCategory;
+	
 	public String getId() {
+		
 		return id;
 	}
 	public void setId(String id) {
