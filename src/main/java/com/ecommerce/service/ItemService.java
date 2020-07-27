@@ -92,6 +92,7 @@ public class ItemService {
 		Item item = new Item();
 		item.setItemName(itemJson.optString("name"));
 		item.setRegularPrice(itemJson.optDouble("price"));
+		item.setSalePrice(itemJson.optDouble("salePrice"));
 		SubCategory subCategory = subCategoryRepository.findById(itemJson.optString("subCategoryId")).get();
 		item.setSubCategory(subCategory);
 		

@@ -1,6 +1,5 @@
 package com.ecommerce.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,34 +20,42 @@ import com.ecommerce.util.Constants;
 
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
+public class Orders {
 
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
+	@Column(name = "ordernumber")
 	private String orderNumber;
+	@Column(name = "status")
 	private Integer status;
+	@Column(name = "isdeleted")
 	private Integer isDeleted;
+	@Column(name = "isdeletedfromcustomer")
 	private Integer isDeletedFromCustomer;
+	@Column(name = "totalamount")
 	private Double totalAmount;
+	@Column(name = "orderedon")
 	private Date orderedOn;
 	@ManyToOne
+	@JoinColumn(name = "userid")
 	private User userId;
 	@ManyToOne
+	@JoinColumn(name = "addressid")
 	private Address addressId;
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "order", referencedColumnName = "id", nullable = false)
-	private Set<OrderDetail> orderDetail;
+//	private Set<OrderDetail> orderDetail;
 	
-	public Set<OrderDetail> getOrderDetail() {
-		return orderDetail;
-	}
-
-	public void setOrderDetail(Set<OrderDetail> orderDetail) {
-		this.orderDetail = orderDetail;
-	}
+//	public Set<OrderDetail> getOrderDetail() {
+//		return orderDetail;
+//	}
+//
+//	public void setOrderDetail(Set<OrderDetail> orderDetail) {
+//		this.orderDetail = orderDetail;
+//	}
 
 	public String getId() {
 		return id;
@@ -121,6 +129,13 @@ public class Orders implements Serializable {
 		this.orderedOn = orderedOn;
 	}
 
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", orderNumber=" + orderNumber + ", status=" + status + ", isDeleted=" + isDeleted
+				+ ", isDeletedFromCustomer=" + isDeletedFromCustomer + ", totalAmount=" + totalAmount + ", orderedOn="
+				+ orderedOn + ", userId=" + userId + ", addressId=" + addressId + "]";
+	}
+
 //	public Address getAddressId() {
 //		return addressId;
 //	}
@@ -128,12 +143,5 @@ public class Orders implements Serializable {
 //	public void setAddressId(Address addressId) {
 //		this.addressId = addressId;
 //	}
-
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", userId=" + userId + ", status=" + status + ", isDeleted=" + isDeleted
-				+ ", isDeletedFromCustomer=" + isDeletedFromCustomer + ", totalAmount=" + totalAmount + ", orderedOn="
-				+ orderedOn + ", orderDetail=" + orderDetail + "]";
-	}
 
 }

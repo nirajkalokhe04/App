@@ -1,5 +1,6 @@
 package com.ecommerce.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.model.Address;
 import com.ecommerce.model.Item;
 import com.ecommerce.model.OrderDetail;
 import com.ecommerce.model.Orders;
@@ -30,12 +32,19 @@ public class OrderService {
 	public String addOrder(JSONObject orderJson) {
 		String customerId = orderJson.optString("customerId");
 		double totalAmount = orderJson.optDouble("totalAmount");
+		int isDeleted = orderJson.optInt("isDeleted");
+		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer");
+		String addressId = orderJson.optString("addressId");
+		Date orderedOn = new Date();
 		String orderNumber = "";
 
 		synchronized (this) {
 			Orders order = new Orders();
 			order.setOrderNumber(this.generateOrderNumber());
 			order.setTotalAmount(totalAmount);
+			order.setIsDeleted(isDeleted);
+			order.setIsDeletedFromCustomer(isDeletedFromCustomer);
+			order.setOrderedOn(orderedOn);
 
 //			Customer customer = customerRepository.findById(customerId);
 //			order.setCustomer(customer);
