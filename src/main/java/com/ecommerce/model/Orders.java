@@ -27,6 +27,7 @@ public class Orders implements Serializable {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
+	private String orderNumber;
 	private Integer status;
 	private Integer isDeleted;
 	private Integer isDeletedFromCustomer;
@@ -54,6 +55,14 @@ public class Orders implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 
 	public User getUserId() {
