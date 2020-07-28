@@ -29,9 +29,17 @@ public class CartDetails {
 	@Column(name="price",columnDefinition = Constants.DOUBLE)
 	private Double itemPrice;
 	
+	@Column(name="quantity",columnDefinition = Constants.DOUBLE)
+	private Double itemQuantity;
+	
+	@Column(name="totalprice",columnDefinition = Constants.DOUBLE)
+	private Double totalPrice;
 
 	@Column(name="isactive",columnDefinition = "BOOLEAN")
 	private Boolean isActive;
+	
+	
+	private String apiKey;
 
 	public String getCartDetailId() {
 		return cartDetailId;
@@ -73,10 +81,36 @@ public class CartDetails {
 		this.itemPrice = itemPrice;
 	}
 
+	public Double getItemQuantity() {
+		return itemQuantity;
+	}
+
+	public void setItemQuantity(Double itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	
+	public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+
 	@Override
 	public String toString() {
 		return "CartDetails [cartDetailId=" + cartDetailId + ", cartId=" + cartId + ", itemId=" + itemId
-				+ ", itemPrice=" + itemPrice + ", isActive=" + isActive + "]";
+				+ ", itemPrice=" + itemPrice + ", itemQuantity=" + itemQuantity + ", totalPrice=" + totalPrice
+				+ ", isActive=" + isActive + ", apiKey=" + apiKey + "]";
 	}
 	
 	

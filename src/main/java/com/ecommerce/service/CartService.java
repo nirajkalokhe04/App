@@ -10,6 +10,8 @@ import com.ecommerce.model.CartDetails;
 import com.ecommerce.repository.CartDetailsRepository;
 import com.ecommerce.repository.CartRepository;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class CartService {
 	
@@ -37,18 +39,23 @@ public class CartService {
 		//TODO Check whether user is already having cart4
 		String returnMsg = "Item removed successfully."; 
 		Cart cart = cartRepository.findCartByUserId(userId);
-		CartDetails cartDetails = cartDetailsRepository.findCartDetails(cart.getCartId(), itemId);
-		if(cart.getCartTotal()-cartDetails.getItemPrice()>0) {
+		CartDetails existingCartDetails = cartDetailsRepository.findCartDetails(cart.getCartId(), itemId);
+		if(existingCartDetails.getItemId().equals(itemId)) {
+			existingCartDetails.setItemQuantity(existingCartDetails.getItemQuantity()-1);
+			existingCartDetails.setTotalPrice(existingCartDetails.getItemQuantity()*existingCartDetails.getItemPrice());
+		}
+		if(cart.getCartTotal()-existingCartDetails.getItemPrice()>0) {
+			cart.setCartTotal(cart.getCartTotal()-existingCartDetails.getItemPrice());
 			
-			cart.setCartTotal(cart.getCartTotal()-cartDetails.getItemPrice());
 		}
 		else {
 			cartRepository.delete(cart);
+			cartDetailsRepository.deleteById(existingCartDetails.getCartDetailId());
 			return returnMsg;
 		}
 		
 		cartRepository.save(cart);
-		cartDetailsRepository.deleteById(cartDetails.getCartDetailId());
+		cartDetailsRepository.deleteById(existingCartDetails.getCartDetailId());
 		return returnMsg;
 	}
 	
@@ -60,6 +67,11 @@ public class CartService {
 	public String updateCartDetails(CartDetails cartDetails, String userId) {
 		String returnMsg= "Cart updated successfully!!";
 		cartDetails.setCartId(cartRepository.findCartByUserId(userId).getCartId());
+		CartDetails existingCartDetails =checkItemInCart(cartDetails.getCartId(), cartDetails.getItemId());
+		if(existingCartDetails!=null) {
+			cartDetails.setItemQuantity(cartDetails.getItemQuantity()+existingCartDetails.getItemQuantity());
+			cartDetails.setTotalPrice(cartDetails.getItemQuantity()*cartDetails.getItemPrice());
+		}
 		cartDetailsRepository.save(cartDetails);
 		return returnMsg;
 	}
@@ -68,6 +80,12 @@ public class CartService {
 		//TODO Check whether user is already having cart
 		return cartRepository.findCartDetailsByUserId(userId);
 		 
+	}
+	
+	private CartDetails checkItemInCart(String cartId, String itemId) {
+		CartDetails cd=cartDetailsRepository.findCartDetails(cartId, itemId);
+		 cd.setApiKey(RandomString.make());
+		 return cd;
 	}
 
 }
