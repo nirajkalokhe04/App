@@ -19,10 +19,26 @@ public class User {
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
+	
+	@Column(columnDefinition =  Constants.VARCHAR_64)
 	private String firstName;
+
+	@Column(columnDefinition =  Constants.VARCHAR_64)
 	private String lastName;
-	private String contactNo;
+
+	@Column(columnDefinition = "LONG")
+	private long contactNo;
+	
+
+	@Column(columnDefinition =  Constants.VARCHAR_64)
 	private String mail;
+
+	@Column(columnDefinition =  Constants.VARCHAR_64)
+	private String password;
+
+	@Column(columnDefinition =  Constants.VARCHAR_64)
+	private String username;
+	
 	private boolean isDeleted;
 
 	public String getId() {
@@ -49,11 +65,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getContactNo() {
+	public long getContactNo() {
 		return contactNo;
 	}
 
-	public void setContactNo(String contactNo) {
+	public void setContactNo(Long contactNo) {
 		this.contactNo = contactNo;
 	}
 
@@ -71,6 +87,22 @@ public class User {
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }
