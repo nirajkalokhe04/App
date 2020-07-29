@@ -57,4 +57,9 @@ public class OrderController {
 	public ResponseEntity<String> updateOrderStatus(@PathVariable String orderId, @PathVariable int status){
 		return new ResponseEntity<String>(orderService.updateOrderStatus(orderId, status),HttpStatus.OK);
 	}
+	
+	@GetMapping("/orders/{orderId}")
+	public ResponseEntity<String> getOrderById(@PathVariable String orderId){
+		return new ResponseEntity<String>(orderService.getOrderById(orderId), HttpStatus.OK);
+	}
 }

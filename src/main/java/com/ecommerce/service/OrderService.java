@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ import com.ecommerce.model.Orders;
 import com.ecommerce.repository.ItemRepository;
 import com.ecommerce.repository.OrderDetailRepository;
 import com.ecommerce.repository.OrderRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class OrderService {
@@ -39,8 +42,9 @@ public class OrderService {
 		String orderNumber = "";
 
 		synchronized (this) {
+			orderNumber = this.generateOrderNumber();
 			Orders order = new Orders();
-			order.setOrderNumber(this.generateOrderNumber());
+			order.setOrderNumber(orderNumber);
 			order.setTotalAmount(totalAmount);
 			order.setIsDeleted(isDeleted);
 			order.setIsDeletedFromCustomer(isDeletedFromCustomer);
@@ -129,6 +133,34 @@ public class OrderService {
 		} else {
 			returnStr = "Order status not updated. Please try again.";
 		}
+		return returnStr;
+	}
+
+	public String getOrderById(String orderId) {
+		String returnStr = null;
+		
+		Orders order = orderRepository.findById(orderId).get();
+		
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			returnStr = mapper.writeValueAsString(order);
+			System.out.println(returnStr);
+			JSONObject jobj = new JSONObject(returnStr);
+			List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrder(order);
+			System.out.println(orderDetails.size());
+			
+			JSONArray orderDetailArr = new JSONArray();
+			for(int ind = 0; ind < orderDetails.size(); ind++) {
+				String details = mapper.writeValueAsString(orderDetails.get(ind));
+				orderDetailArr.put(new JSONObject(details));
+			}
+			
+			jobj.put("orderDetails", orderDetailArr);
+			returnStr = jobj.toString();
+		} catch (JSONException | JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 		return returnStr;
 	}
 }
