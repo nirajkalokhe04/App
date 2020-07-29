@@ -121,4 +121,16 @@ public class ItemController {
 	public ResponseEntity<String> deleteItem(@PathVariable String itemId){
 		return new ResponseEntity<String>(itemService.deleteItem(itemId),HttpStatus.OK);
 	}
+	
+	@GetMapping("/item/{itemName}")
+	public ResponseEntity<List<Item>> SearchItem(@PathVariable String itemName){
+		return new ResponseEntity<List<Item>>(itemService.searchItem(itemName),HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/item/category/{categoryId}")
+	public ResponseEntity<List<Item>> getItemByCategory(@PathVariable String categoryId){
+		System.out.println("categoryId "+categoryId);
+		return new ResponseEntity<List<Item>>(itemService.getItemByCategory(categoryId), HttpStatus.ACCEPTED);
+		
+	}
 }

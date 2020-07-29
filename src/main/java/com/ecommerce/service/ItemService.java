@@ -117,4 +117,12 @@ public class ItemService {
 		itemRepository.deleteById(itemId);
 		return returnStr;
 	}
+
+	public List<Item> searchItem(String itemName) {
+		return itemRepository.sarchByName(itemName);
+	}
+	
+	public List<Item> getItemByCategory(String categoryId) {
+		return itemRepository.ItemByCategory(categoryId);
+	}
 }
