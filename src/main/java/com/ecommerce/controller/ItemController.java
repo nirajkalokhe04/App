@@ -129,8 +129,11 @@ public class ItemController {
 	
 	@GetMapping("/item/category/{categoryId}")
 	public ResponseEntity<List<Item>> getItemByCategory(@PathVariable String categoryId){
-		System.out.println("categoryId "+categoryId);
 		return new ResponseEntity<List<Item>>(itemService.getItemByCategory(categoryId), HttpStatus.ACCEPTED);
-		
+	}
+	
+	@GetMapping("/item/itemId/{itemId}")
+	public ResponseEntity<Item> getItemById(@PathVariable String itemId){
+		return new ResponseEntity<Item>(itemService.getItemById(itemId), HttpStatus.ACCEPTED);
 	}
 }

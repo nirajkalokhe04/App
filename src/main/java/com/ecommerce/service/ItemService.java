@@ -125,4 +125,11 @@ public class ItemService {
 	public List<Item> getItemByCategory(String categoryId) {
 		return itemRepository.ItemByCategory(categoryId);
 	}
+
+	public Item getItemById(String itemId) {
+		// TODO Auto-generated method stub
+		return itemRepository.findById(itemId).get();
+	}
+
+	
 }
