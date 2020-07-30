@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.ecommerce.exception.CustomerNotFound;
 import com.ecommerce.exception.UserNotFound;
 
 @RestControllerAdvice
@@ -16,6 +17,12 @@ public class CustomExceptionHandler {
 	
 	@ExceptionHandler(UserNotFound.class)
 	public ResponseEntity<String> userNotFoundException(UserNotFound ex){
+		logger.info(ex.getMessage());
+		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(CustomerNotFound.class)
+	public ResponseEntity<String> customerNotFoundException(CustomerNotFound ex){
 		logger.info(ex.getMessage());
 		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
