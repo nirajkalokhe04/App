@@ -20,25 +20,26 @@ public class User {
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
 	
-	@Column(columnDefinition =  Constants.VARCHAR_64)
+	@Column(name = "firstname", columnDefinition =  Constants.VARCHAR_64)
 	private String firstName;
 
-	@Column(columnDefinition =  Constants.VARCHAR_64)
+	@Column(name = "lastname", columnDefinition =  Constants.VARCHAR_64)
 	private String lastName;
 
-	@Column(columnDefinition = "LONG")
+	@Column(name = "contactno", columnDefinition = "LONG")
 	private long contactNo;
 	
 
-	@Column(columnDefinition =  Constants.VARCHAR_64)
+	@Column(name = "mail", columnDefinition =  Constants.VARCHAR_64)
 	private String mail;
 
-	@Column(columnDefinition =  Constants.VARCHAR_64)
+	@Column(name = "password", columnDefinition =  Constants.VARCHAR_64)
 	private String password;
 
-	@Column(columnDefinition =  Constants.VARCHAR_64)
+	@Column(name = "username", columnDefinition =  Constants.VARCHAR_64)
 	private String username;
 	
+	@Column(name = "isdeleted")
 	private boolean isDeleted;
 
 	public String getId() {
