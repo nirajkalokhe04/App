@@ -10,13 +10,19 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.ecommerce.exception.CustomerNotFound;
+import com.ecommerce.exception.UserNotFound;
 import com.ecommerce.model.Address;
+import com.ecommerce.model.Customer;
 import com.ecommerce.model.Item;
 import com.ecommerce.model.OrderDetail;
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.User;
+import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.ItemRepository;
 import com.ecommerce.repository.OrderDetailRepository;
 import com.ecommerce.repository.OrderRepository;
+import com.ecommerce.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +36,12 @@ public class OrderService {
 	OrderRepository orderRepository;
 	
 	@Autowired
+	CustomerRepository customerRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
 	OrderDetailRepository orderDetailRepository;
 
 	public String addOrder(JSONObject orderJson) {
@@ -38,6 +50,7 @@ public class OrderService {
 		int isDeleted = orderJson.optInt("isDeleted");
 		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer");
 		String addressId = orderJson.optString("addressId");
+		String userId = orderJson.optString("userId");
 		Date orderedOn = new Date();
 		String orderNumber = "";
 
@@ -50,8 +63,11 @@ public class OrderService {
 			order.setIsDeletedFromCustomer(isDeletedFromCustomer);
 			order.setOrderedOn(orderedOn);
 
-//			Customer customer = customerRepository.findById(customerId);
-//			order.setCustomer(customer);
+			Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFound("Customer not found."));
+			order.setCustomer(customer);
+			
+			User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFound("User not found."));
+			order.setUser(user);
 
 			order = orderRepository.save(order);
 

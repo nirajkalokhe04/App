@@ -40,8 +40,11 @@ public class Orders {
 	@Column(name = "orderedon")
 	private Date orderedOn;
 	@ManyToOne
+	@JoinColumn(name = "customerid")
+	private Customer customer;
+	@ManyToOne
 	@JoinColumn(name = "userid")
-	private User userId;
+	private User user;
 	@ManyToOne
 	@JoinColumn(name = "addressid")
 	private Address addressId;
@@ -72,13 +75,13 @@ public class Orders {
 	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-
-	public User getUserId() {
-		return userId;
+	
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Address getAddressId() {
@@ -129,19 +132,19 @@ public class Orders {
 		this.orderedOn = orderedOn;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", orderNumber=" + orderNumber + ", status=" + status + ", isDeleted=" + isDeleted
 				+ ", isDeletedFromCustomer=" + isDeletedFromCustomer + ", totalAmount=" + totalAmount + ", orderedOn="
-				+ orderedOn + ", userId=" + userId + ", addressId=" + addressId + "]";
+				+ orderedOn + ", customer=" + customer + ", user=" + user + ", addressId=" + addressId + "]";
 	}
-
-//	public Address getAddressId() {
-//		return addressId;
-//	}
-//
-//	public void setAddressId(Address addressId) {
-//		this.addressId = addressId;
-//	}
 
 }

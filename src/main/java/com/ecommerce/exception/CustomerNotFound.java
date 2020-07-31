@@ -26,7 +26,7 @@ public class CustomerNotFound extends RuntimeException{
 
 	@Override
 	public String toString() {
-		return "UserNotFound [message=" + message + "]";
+		return "CustomerNotFound [message=" + message + "]";
 	}
 	
 }
