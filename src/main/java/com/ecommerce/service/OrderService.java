@@ -18,6 +18,8 @@ import com.ecommerce.model.Item;
 import com.ecommerce.model.OrderDetail;
 import com.ecommerce.model.Orders;
 import com.ecommerce.model.User;
+import com.ecommerce.repository.CartDetailsRepository;
+import com.ecommerce.repository.CartRepository;
 import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.ItemRepository;
 import com.ecommerce.repository.OrderDetailRepository;
@@ -36,6 +38,12 @@ public class OrderService {
 	OrderRepository orderRepository;
 	
 	@Autowired
+	CartRepository cartRepository;
+	
+	@Autowired
+	CartDetailsRepository cartDetailsRepository;
+	
+	@Autowired
 	CustomerRepository customerRepository;
 	
 	@Autowired
@@ -51,6 +59,8 @@ public class OrderService {
 		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer");
 		String addressId = orderJson.optString("addressId");
 		String userId = orderJson.optString("userId");
+		String cartId = orderJson.optString("cartId");
+		
 		Date orderedOn = new Date();
 		String orderNumber = "";
 
@@ -89,6 +99,9 @@ public class OrderService {
 
 				orderDetailRepository.save(orderDetail);
 			}
+//			cartDetailsRepository.findByCartId(cartId).stream().forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
+			cartDetailsRepository.findByCartId(cartId).forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
+			cartRepository.deleteById(cartId);
 		}
 		return orderNumber;
 	}

@@ -1,5 +1,7 @@
 package com.ecommerce.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +19,6 @@ public interface CartDetailsRepository extends JpaRepository<CartDetails, String
 	@Query("FROM  CartDetails t where t.cartId = :cartId and t.itemId =:itemId") 
     CartDetails findCartDetails(@Param("cartId") String cartId, @Param("itemId") String itemId);
 	
-
+	List<CartDetails> findByCartId(String cartId);
+	
 }

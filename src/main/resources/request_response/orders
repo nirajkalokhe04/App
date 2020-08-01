@@ -1,0 +1,21 @@
+
+Type : POST
+Path : /orders
+Payload :
+{
+  "status": 0,
+  "isDeleted": false,
+  "isDeletedFromCustomer": false,
+  "totalAmount": 200,
+  "customerId": "4028ab2273a00d520173a02069ac0000",
+  "userId": "4028ab217380463e01738066a78a0000",
+  "orderDetails": [
+    {
+      "itemId": "4028ab22736d4ac801736d730df10003",
+      "quantity": "2",
+      "price": "100"
+    }
+  ]
+}
+
+===============================================================
