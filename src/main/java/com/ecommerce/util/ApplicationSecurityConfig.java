@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -30,10 +33,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		http
+		http		
 		.csrf().disable()
 		.authorizeRequests().antMatchers("*").permitAll()
-		.anyRequest().authenticated()
+//		.anyRequest().authenticated()
 		.and()
 		.formLogin()
 //		.loginPage("/login").permitAll()
@@ -44,7 +47,24 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		.logoutSuccessUrl("/home").permitAll();
 	}
 	
-	
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");//local
+		//config.addAllowedOrigin("https://dms.myatos-syntel.net/DeMS");//Production 
+//		config.addAllowedOrigin("https://dms-uat.myatos-syntel.net/DeMS");//UAT
+		
+		config.addAllowedHeader("*");
+//		config.addAllowedMethod("OPTIONS");
+		config.addAllowedMethod("GET");
+		config.addAllowedMethod("POST");
+		//config.addAllowedMethod("PUT");
+		//config.addAllowedMethod("DELETE");
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
+	}
 	/*
 	 * @Bean
 	 * 

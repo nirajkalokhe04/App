@@ -40,6 +40,10 @@ public class Item {
 	@Column(name="istaxable", columnDefinition = "Boolean")
 	private Boolean isTaxable;
 	
+	@Column(name="isdashboard", columnDefinition = "Boolean")
+	private Boolean isDashboard;
+	
+	
 	@OneToOne
 	@JoinColumn(name = "subcategoryid")
 	private SubCategory subCategory;
@@ -93,11 +97,18 @@ public class Item {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+	
+	public Boolean getIsDashboard() {
+		return isDashboard;
+	}
+	public void setIsDashboard(Boolean isDashboard) {
+		this.isDashboard = isDashboard;
+	}
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", regularPrice="
 				+ regularPrice + ", salePrice=" + salePrice + ", isAvailable=" + isAvailable + ", isTaxable="
-				+ isTaxable + ", subCategory=" + subCategory + "]";
+				+ isTaxable + ", isDashboard=" + isDashboard + ", subCategory=" + subCategory + "]";
 	}
 
 	

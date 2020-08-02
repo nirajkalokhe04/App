@@ -1,7 +1,7 @@
 @POST
 /subcategory
 {
-"subcategotryName" :"Leafy Vegitables",
+"name" :"Leafy Vegitables",
 "subcategoryDescription":"Green vegitables",
 "isActive":TRUE,
 "categoryId":"402881f2737830d9017378316fdb0000"
