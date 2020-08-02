@@ -22,7 +22,7 @@ public class DashboardService {
 
 	public List<Item> getFruits() {
 		// TODO Auto-generated method stub
-		return itemRepository.VegetableItemsForDashboard();
+		return itemRepository.FruitsItemsForDashboard();
 	}
 
 	public List<Item> getOfferItems() {

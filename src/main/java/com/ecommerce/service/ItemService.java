@@ -131,5 +131,10 @@ public class ItemService {
 		return itemRepository.findById(itemId).get();
 	}
 
+	public List<SubCategory> getSubcategoryByCategory(String category) {
+		// TODO Auto-generated method stub
+		return subCategoryRepository.getSubcategoryByCategory(category);
+	}
+
 	
 }

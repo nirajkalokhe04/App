@@ -136,4 +136,9 @@ public class ItemController {
 	public ResponseEntity<Item> getItemById(@PathVariable String itemId){
 		return new ResponseEntity<Item>(itemService.getItemById(itemId), HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/subcategory/{category}")
+	public ResponseEntity<List<SubCategory>> getSubcategoryByCategory(@PathVariable String category){
+		return new ResponseEntity<List<SubCategory>>(itemService.getSubcategoryByCategory(category), HttpStatus.OK);
+	}
 }
