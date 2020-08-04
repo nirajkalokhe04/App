@@ -1,5 +1,7 @@
 package com.ecommerce.model;
 
+import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -43,6 +46,8 @@ public class Item {
 	@Column(name="isdashboard", columnDefinition = "Boolean")
 	private Boolean isDashboard;
 	
+	@Transient
+	private String itemImages[];
 	
 	@OneToOne
 	@JoinColumn(name = "subcategoryid")
@@ -104,12 +109,20 @@ public class Item {
 	public void setIsDashboard(Boolean isDashboard) {
 		this.isDashboard = isDashboard;
 	}
+	
+	public String[] getItemImages() {
+		return itemImages;
+	}
+	public void setItemImages(String[] itemImages) {
+		this.itemImages = itemImages;
+	}
+	
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", regularPrice="
 				+ regularPrice + ", salePrice=" + salePrice + ", isAvailable=" + isAvailable + ", isTaxable="
-				+ isTaxable + ", isDashboard=" + isDashboard + ", subCategory=" + subCategory + "]";
+				+ isTaxable + ", isDashboard=" + isDashboard + ", itemImages=" + Arrays.toString(itemImages)
+				+ ", subCategory=" + subCategory + "]";
 	}
-
 	
 }

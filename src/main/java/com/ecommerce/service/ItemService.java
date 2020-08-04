@@ -3,6 +3,7 @@ package com.ecommerce.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ItemService {
 	
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Value("${item.images.path}")
+	private String imagePath;
 
 	public String addCategory(Category category) {
 		String returnStr = "Category added sucessfully.";
@@ -119,16 +123,22 @@ public class ItemService {
 	}
 
 	public List<Item> searchItem(String itemName) {
-		return itemRepository.sarchByName(itemName);
+		List<Item> item = itemRepository.sarchByName(itemName);
+		item.forEach(it -> it.setItemImages(itemRepository.itemGalleryByIdPref(it.getId(),imagePath)));
+		return item;
 	}
 	
 	public List<Item> getItemByCategory(String categoryId) {
-		return itemRepository.ItemByCategory(categoryId);
+		List<Item> item = itemRepository.itemByCategory(categoryId);
+		item.forEach(it -> it.setItemImages(itemRepository.itemGalleryByIdPref(it.getId(),imagePath)));
+		return item;
 	}
 
 	public Item getItemById(String itemId) {
 		// TODO Auto-generated method stub
-		return itemRepository.findById(itemId).get();
+		Item item = itemRepository.findById(itemId).get();
+		item.setItemImages(itemRepository.itemGalleryById(itemId,imagePath));
+		return item;
 	}
 
 	public List<SubCategory> getSubcategoryByCategory(String category) {
