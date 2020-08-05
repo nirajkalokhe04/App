@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.model.Category;
@@ -140,5 +141,10 @@ public class ItemController {
 	@GetMapping("/subcategory/{category}")
 	public ResponseEntity<List<SubCategory>> getSubcategoryByCategory(@PathVariable String category){
 		return new ResponseEntity<List<SubCategory>>(itemService.getSubcategoryByCategory(category), HttpStatus.OK);
+	}
+	
+	@PostMapping("/item/filter")
+	public ResponseEntity<List<Item>> getItemsBySubCategory(@RequestBody String filterStr){
+		return new ResponseEntity<List<Item>>(itemService.getItemsBySubCategory(filterStr), HttpStatus.OK);
 	}
 }

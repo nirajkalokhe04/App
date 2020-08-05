@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.model.Category;
@@ -146,5 +149,23 @@ public class ItemService {
 		return subCategoryRepository.getSubcategoryByCategory(category);
 	}
 
+	public List<Item> getItemsBySubCategory(String filterStr) {
+		List<Item> itemList = null;
+		try {
+			JSONObject filterJson = new JSONObject(filterStr);
+			String subCategoryId = filterJson.optString("subCategoryId");
+
+			SubCategory subCategory = subCategoryRepository.findById(subCategoryId).get();
+			int page = filterJson.optInt("page", 0);
+			int size = filterJson.optInt("size", 10);
+			Pageable pageable = PageRequest.of(page, size, Sort.by("itemName").ascending());
+
+			itemList = itemRepository.findBySubCategory(subCategory, pageable);
+			itemList.forEach(System.out::println);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return itemList;
+	}
 	
 }
