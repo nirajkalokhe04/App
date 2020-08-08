@@ -64,7 +64,7 @@ public class OrderService {
 		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer");
 		String addressId = orderJson.optString("addressId");
 		String userId = orderJson.optString("userId");
-		String cartId = orderJson.optString("cartId");
+		String cartId = orderJson.optString("cartId", "");
 		
 		Date orderedOn = new Date();
 		String orderNumber = "";
@@ -81,8 +81,8 @@ public class OrderService {
 			Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFound("Customer not found."));
 			order.setCustomer(customer);
 			
-			User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFound("User not found."));
-			order.setUser(user);
+//			User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFound("User not found."));
+//			order.setUser(user);
 
 			order = orderRepository.save(order);
 
@@ -105,8 +105,10 @@ public class OrderService {
 				orderDetailRepository.save(orderDetail);
 			}
 //			cartDetailsRepository.findByCartId(cartId).stream().forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
-			cartDetailsRepository.findByCartId(cartId).forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
-			cartRepository.deleteById(cartId);
+			if(!cartId.equals("")){
+				cartDetailsRepository.findByCartId(cartId).forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
+				cartRepository.deleteById(cartId);
+			}
 		}
 		return orderNumber;
 	}
@@ -206,6 +208,28 @@ public class OrderService {
 			return 1;
 		} 
 		return 0;
+	}
+
+	public String updateOrderStatus(JSONObject deliveryStatusJson) {
+		String orderId = deliveryStatusJson.optString("orderId");
+		int status = deliveryStatusJson.optInt("status");
+		String userId = deliveryStatusJson.optString("userId");
+		String returnStr = "Order status updated sucessfully.";
+		
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFound("User not found."));
+		
+		Optional<Orders> order = orderRepository.findById(orderId).map(orders -> {
+			orders.setStatus(status);
+			orders.setUser(user);
+			return orderRepository.save(orders);
+		});
+		
+		if(order.isPresent()) {
+			returnStr = "Order status updated sucessfully.";
+		} else {
+			returnStr = "Order status not updated. Please try again.";
+		}
+		return returnStr;
 	}
 	
 }

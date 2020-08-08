@@ -68,4 +68,16 @@ public class OrderController {
 		return new ResponseEntity<Integer>(orderService.checkPinCode(Pincode), HttpStatus.OK);
 	}
 	
+	@PutMapping("/orders/delivery/status")
+	public ResponseEntity<String> updateOrderStatus(@RequestBody String deliveryStatus){
+		JSONObject deliveryStatusJson;
+		String responseStr = "";
+		try {
+			deliveryStatusJson = new JSONObject(deliveryStatus);
+			responseStr = orderService.updateOrderStatus(deliveryStatusJson);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(responseStr, HttpStatus.OK);
+	}
 }

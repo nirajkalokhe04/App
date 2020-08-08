@@ -53,5 +53,9 @@ public class UserService {
 		});
 		return returnStr = "User deleted.";
 	}
+
+	public List<User> getUserByRole(int role) {
+		return userRepository.findUserByRole(role);
+	}
 	
 }
