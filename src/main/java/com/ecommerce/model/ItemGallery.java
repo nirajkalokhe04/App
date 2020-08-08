@@ -26,6 +26,10 @@ public class ItemGallery {
 	@Column(name="path", columnDefinition = Constants.VARCHAR_255)
 	private String galleryPath;
 
+
+	@Column(name="preference", columnDefinition ="INTEGER")
+	private Integer preference;
+	
 	public String getItemGalleryId() {
 		return itemGalleryId;
 	}

@@ -48,7 +48,7 @@ public class UserService {
 	public String deleteUser(String userId) {
 		String returnStr = "";
 		userRepository.findById(userId).ifPresent(user -> {
-			user.setDeleted(true);
+			user.setDeleted(0);
 			userRepository.save(user);
 		});
 		return returnStr = "User deleted.";

@@ -25,7 +25,13 @@ public class SubCategory {
 	@Column(name ="name", columnDefinition =  Constants.VARCHAR_64)
 	private String subcategotryName;
 	
-	@Column(name ="description", columnDefinition = Constants.VARCHAR_255)
+	@Column(name ="name", insertable = false, updatable = false)
+	private String categoryName; 
+	
+	@Column(name ="logo", insertable = false, updatable = false)
+	private String categoryLogo; 
+	
+	@Column(name ="description", columnDefinition = "TEXT")
 	private String subcategoryDescription;
 	
 	@Column(name ="isactive", columnDefinition = "BOOLEAN")
@@ -75,10 +81,28 @@ public class SubCategory {
 		this.category = category;
 	}
 
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getCategoryLogo() {
+		return categoryLogo;
+	}
+
+	public void setCategoryLogo(String categoryLogo) {
+		this.categoryLogo = categoryLogo;
+	}
+
 	@Override
 	public String toString() {
-		return "SubCategory [id=" + id + ", subcategotryName=" + subcategotryName + ", subcategoryDescription="
-				+ subcategoryDescription + ", isActive=" + isActive + ", category=" + category + "]";
+		return "SubCategory [id=" + id + ", subcategotryName=" + subcategotryName + ", categoryName=" + categoryName
+				+ ", categoryLogo=" + categoryLogo + ", subcategoryDescription=" + subcategoryDescription
+				+ ", isActive=" + isActive + ", category=" + category + "]";
 	}
 	
 

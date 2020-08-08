@@ -17,6 +17,7 @@ import com.ecommerce.model.Customer;
 import com.ecommerce.model.Item;
 import com.ecommerce.model.OrderDetail;
 import com.ecommerce.model.Orders;
+import com.ecommerce.model.PinCode;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.CartDetailsRepository;
 import com.ecommerce.repository.CartRepository;
@@ -24,6 +25,7 @@ import com.ecommerce.repository.CustomerRepository;
 import com.ecommerce.repository.ItemRepository;
 import com.ecommerce.repository.OrderDetailRepository;
 import com.ecommerce.repository.OrderRepository;
+import com.ecommerce.repository.PinCodeRepository;
 import com.ecommerce.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,6 +53,9 @@ public class OrderService {
 	
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
+
+	@Autowired
+	PinCodeRepository pinCodeRepository;
 
 	public String addOrder(JSONObject orderJson) {
 		String customerId = orderJson.optString("customerId");
@@ -192,4 +197,15 @@ public class OrderService {
 		
 		return returnStr;
 	}
+	
+	public Integer checkPinCode(Integer pinCode) {
+		
+		PinCode pin = pinCodeRepository.checkPincode(pinCode);
+		
+		if(pin!=null) {
+			return 1;
+		} 
+		return 0;
+	}
+	
 }

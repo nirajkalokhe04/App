@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import com.ecommerce.util.Constants;
 
@@ -29,25 +30,56 @@ public class Orders {
 	private String id;
 	@Column(name = "ordernumber")
 	private String orderNumber;
+	
+	@Column(name ="deliveryslot" , columnDefinition = Constants.VARCHAR_32)
+	private String deliverySlot;
+	
 	@Column(name = "status")
 	private Integer status;
+	
 	@Column(name = "isdeleted")
 	private Integer isDeleted;
+	
 	@Column(name = "isdeletedfromcustomer")
 	private Integer isDeletedFromCustomer;
+	
 	@Column(name = "totalamount")
 	private Double totalAmount;
+	
+	
+	@Column(name = "deliveryCharge")
+	private Double deliveryCharge;
+	
+
 	@Column(name = "orderedon")
 	private Date orderedOn;
+	
 	@ManyToOne
 	@JoinColumn(name = "customerid")
 	private Customer customer;
+	
 	@ManyToOne
 	@JoinColumn(name = "userid")
 	private User user;
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "addressid")
 	private Address addressId;
+	
+	@ManyToOne
+	@JoinColumn(name = "userid",insertable = false, updatable = false)
+	private User deliveryBoy;
+	
+	@Column(name ="ordernumber",insertable = false, updatable = false)
+	private String transaction_id;
+
+	@Column(name ="totalamount",insertable = false, updatable = false)
+	private Double orderAmount;
+	
+	@Column(name ="orderedon",insertable = false, updatable = false)
+	private Date orderAt;
+	
 //	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "order", referencedColumnName = "id", nullable = false)
 //	private Set<OrderDetail> orderDetail;
@@ -140,11 +172,62 @@ public class Orders {
 		this.customer = customer;
 	}
 
+	public String getDeliverySlot() {
+		return deliverySlot;
+	}
+
+	public void setDeliverySlot(String deliverySlot) {
+		this.deliverySlot = deliverySlot;
+	}
+
+	public User getDeliveryBoy() {
+		return deliveryBoy;
+	}
+
+	public void setDeliveryBoy(User deliveryBoy) {
+		this.deliveryBoy = deliveryBoy;
+	}
+
+	public String getTransaction_id() {
+		return transaction_id;
+	}
+
+	public void setTransaction_id(String transaction_id) {
+		this.transaction_id = transaction_id;
+	}
+
+	public Double getOrderAmount() {
+		return orderAmount;
+	}
+
+	public void setOrderAmount(Double orderAmount) {
+		this.orderAmount = orderAmount;
+	}
+
+	public Date getOrderAt() {
+		return orderAt;
+	}
+
+	public void setOrderAt(Date orderAt) {
+		this.orderAt = orderAt;
+	}
+
+	public Double getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+	public void setDeliveryCharge(Double deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", orderNumber=" + orderNumber + ", status=" + status + ", isDeleted=" + isDeleted
-				+ ", isDeletedFromCustomer=" + isDeletedFromCustomer + ", totalAmount=" + totalAmount + ", orderedOn="
-				+ orderedOn + ", customer=" + customer + ", user=" + user + ", addressId=" + addressId + "]";
+		return "Orders [id=" + id + ", orderNumber=" + orderNumber + ", deliverySlot=" + deliverySlot + ", status="
+				+ status + ", isDeleted=" + isDeleted + ", isDeletedFromCustomer=" + isDeletedFromCustomer
+				+ ", totalAmount=" + totalAmount + ", deliveryCharge=" + deliveryCharge + ", orderedOn=" + orderedOn
+				+ ", customer=" + customer + ", user=" + user + ", addressId=" + addressId + ", deliveryBoy="
+				+ deliveryBoy + ", transaction_id=" + transaction_id + ", orderAmount=" + orderAmount + ", orderAt="
+				+ orderAt + "]";
 	}
 
 }

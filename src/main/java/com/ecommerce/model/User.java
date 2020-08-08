@@ -40,7 +40,16 @@ public class User {
 	private String username;
 	
 	@Column(name = "isdeleted")
-	private boolean isDeleted;
+	private Integer isDeleted;
+	
+	@Column(name = "firstname", insertable = false, updatable = false)
+	private String name;
+
+	@Column(name = "contactno", insertable = false, updatable = false)
+	private String phoneNumber;
+	
+	@Column(name = "id", insertable = false, updatable = false)
+	private String boyId;
 
 	public String getId() {
 		return id;
@@ -82,11 +91,11 @@ public class User {
 		this.mail = mail;
 	}
 
-	public boolean isDeleted() {
+	public Integer isDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setDeleted(Integer isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -104,6 +113,49 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Integer getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Integer isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getBoyId() {
+		return boyId;
+	}
+
+	public void setBoyId(String boyId) {
+		this.boyId = boyId;
+	}
+
+	public void setContactNo(long contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo=" + contactNo
+				+ ", mail=" + mail + ", password=" + password + ", username=" + username + ", isDeleted=" + isDeleted
+				+ ", name=" + name + ", phoneNumber=" + phoneNumber + ", boyId=" + boyId + "]";
 	}
 	
 }

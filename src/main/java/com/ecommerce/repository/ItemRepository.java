@@ -30,9 +30,9 @@ public interface ItemRepository extends JpaRepository<Item, String> {
 	@Query("SELECT it from Item it inner join SubCategory sub on sub.id = it.subCategory inner join Category cat on sub.category =cat.id where it.isDashboard=1 and cat.categoryName like '%fruit%'")
 	public List<Item> FruitsItemsForDashboard();
 	
-	@Query("SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId")
-	String[] itemGalleryById(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
+	@Query(value = "SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId")
+	public String[] itemGalleryById(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
 	
-	@Query("SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId and ig.preference=1")
-	String[] itemGalleryByIdPref(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
+	@Query(value ="SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId and ig.preference=1")
+	public String[] itemGalleryByIdPref(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
 }

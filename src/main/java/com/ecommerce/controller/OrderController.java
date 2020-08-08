@@ -62,4 +62,10 @@ public class OrderController {
 	public ResponseEntity<String> getOrderById(@PathVariable String orderId){
 		return new ResponseEntity<String>(orderService.getOrderById(orderId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/CheckAreaDeliverable/{Pincode}")
+	public ResponseEntity<Integer> checkPinCode(@PathVariable Integer Pincode){
+		return new ResponseEntity<Integer>(orderService.checkPinCode(Pincode), HttpStatus.OK);
+	}
+	
 }
