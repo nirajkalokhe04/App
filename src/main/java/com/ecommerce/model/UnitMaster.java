@@ -1,9 +1,14 @@
 package com.ecommerce.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -21,11 +26,17 @@ public class UnitMaster {
 	private String unitId;
 	
 	@Column(name="code", columnDefinition = Constants.VARCHAR_32)
-	private String unitCode;
+	private String code;
 	
 	@Column(name="description", columnDefinition = Constants.VARCHAR_64)
-	private String unitDescription;
+	private String description;
+	
+	@Column(name = "isdeleted")
+	private boolean isDeleted;
 
+//	@OneToMany(mappedBy = "unitMaster", cascade = CascadeType.ALL)
+//    private Set<ItemUnitMapping> itemUnitMapping = new HashSet<>();
+	
 	public String getUnitId() {
 		return unitId;
 	}
@@ -34,26 +45,41 @@ public class UnitMaster {
 		this.unitId = unitId;
 	}
 
-	public String getUnitCode() {
-		return unitCode;
+	public String getCode() {
+		return code;
 	}
 
-	public void setUnitCode(String unitCode) {
-		this.unitCode = unitCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getUnitDescription() {
-		return unitDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setUnitDescription(String unitDescription) {
-		this.unitDescription = unitDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+//	public Set<ItemUnitMapping> getItemUnitMapping() {
+//		return itemUnitMapping;
+//	}
+//
+//	public void setItemUnitMapping(Set<ItemUnitMapping> itemUnitMapping) {
+//		this.itemUnitMapping = itemUnitMapping;
+//	}
 
 	@Override
 	public String toString() {
-		return "UnitMaster [unitId=" + unitId + ", unitCode=" + unitCode + ", unitDescription=" + unitDescription + "]";
+		return "UnitMaster [unitId=" + unitId + ", code=" + code + ", description=" + description + ", isDeleted="
+				+ isDeleted + "]";
 	}
-	
-	
 }

@@ -2,11 +2,16 @@ package com.ecommerce.model;
 
 import java.util.Arrays;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -72,6 +77,9 @@ public class Item {
 	@OneToOne
 	@JoinColumn(name = "subcategoryid")
 	private SubCategory subCategory;
+	
+//	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+//    private Set<ItemUnitMapping> itemUnitMapping = new HashSet<>();
 	
 	public String getId() {
 		
@@ -175,6 +183,12 @@ public class Item {
 	public void setOfferPrice(double offerPrice) {
 		this.offerPrice = offerPrice;
 	}
+//	public Set<ItemUnitMapping> getItemUnitMapping() {
+//		return itemUnitMapping;
+//	}
+//	public void setItemUnitMapping(Set<ItemUnitMapping> itemUnitMapping) {
+//		this.itemUnitMapping = itemUnitMapping;
+//	}
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", description="
