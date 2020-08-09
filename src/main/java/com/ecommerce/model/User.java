@@ -50,6 +50,9 @@ public class User {
 	
 	@Column(name = "id", insertable = false, updatable = false)
 	private String boyId;
+	
+	@Column(name = "role")
+	private int role;
 
 	public String getId() {
 		return id;
@@ -150,12 +153,20 @@ public class User {
 	public void setContactNo(long contactNo) {
 		this.contactNo = contactNo;
 	}
+	
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo=" + contactNo
 				+ ", mail=" + mail + ", password=" + password + ", username=" + username + ", isDeleted=" + isDeleted
-				+ ", name=" + name + ", phoneNumber=" + phoneNumber + ", boyId=" + boyId + "]";
+				+ ", name=" + name + ", phoneNumber=" + phoneNumber + ", boyId=" + boyId + ", role=" + role + "]";
 	}
 	
 }

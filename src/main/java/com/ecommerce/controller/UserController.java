@@ -56,4 +56,10 @@ public class UserController {
 	public ResponseEntity<String> deleteUser(@PathVariable String userId){
 		return new ResponseEntity<String>(userService.deleteUser(userId),HttpStatus.OK);
 	}
+	
+	@GetMapping("/users/role/{role}")
+	public ResponseEntity<List<User>> getUserByRole(@PathVariable int role){
+		return new ResponseEntity<List<User>>(userService.getUserByRole(role), HttpStatus.ACCEPTED.OK);
+		
+	}
 }

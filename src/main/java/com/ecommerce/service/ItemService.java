@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.ecommerce.model.Category;
 import com.ecommerce.model.Item;
+import com.ecommerce.model.ItemUnitMapping;
 import com.ecommerce.model.SubCategory;
+import com.ecommerce.model.UnitMaster;
 import com.ecommerce.repository.CategoryRepository;
 import com.ecommerce.repository.ItemRepository;
+import com.ecommerce.repository.ItemUnitMappingRepository;
 import com.ecommerce.repository.SubCategoryRepository;
+import com.ecommerce.repository.UnitMasterRepository;
 
 @Service
 public class ItemService {
@@ -31,6 +35,12 @@ public class ItemService {
 	
 	@Value("${item.images.path}")
 	private String imagePath;
+	
+	@Autowired
+	UnitMasterRepository unitMasterRepository;
+	
+	@Autowired
+	ItemUnitMappingRepository itemUnitMappingRepository;
 
 	public String addCategory(Category category) {
 		String returnStr = "Category added sucessfully.";
@@ -103,7 +113,19 @@ public class ItemService {
 		SubCategory subCategory = subCategoryRepository.findById(itemJson.optString("subCategoryId")).get();
 		item.setSubCategory(subCategory);
 		
-		itemRepository.save(item);
+		item = itemRepository.save(item);
+		
+		
+		UnitMaster unitMaster = unitMasterRepository.findById(itemJson.optString("unitId")).get();
+		
+		ItemUnitMapping itemUnitMapping = new ItemUnitMapping();
+		itemUnitMapping.setItem(item);
+		itemUnitMapping.setUnitMaster(unitMaster);
+		itemUnitMapping.setQuantity(itemJson.optDouble("quantity"));
+		itemUnitMapping.setPrice(itemJson.optDouble("unitPrice"));
+		
+		itemUnitMappingRepository.save(itemUnitMapping);
+		
 		return returnStr;
 	}
 	
