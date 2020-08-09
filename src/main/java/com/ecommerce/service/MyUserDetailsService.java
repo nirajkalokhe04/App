@@ -20,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		
-		com.ecommerce.model.User user = userrepository.findByUsername(username);
+		com.ecommerce.model.User user = userrepository.findByUsername(username).get(0);
 		
 		if(user==null) {
 			throw new UsernameNotFoundException("user 404");

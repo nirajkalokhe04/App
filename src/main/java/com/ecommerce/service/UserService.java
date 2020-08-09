@@ -3,10 +3,14 @@ package com.ecommerce.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.exception.UserNotFound;
+import com.ecommerce.model.Customer;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.UserRepository;
 
@@ -16,11 +20,23 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public HttpStatus verifyLogin(String userData) {
-		if(Boolean.TRUE)
-			return HttpStatus.FOUND;
-		else
-			return HttpStatus.EXPECTATION_FAILED;
+	public User verifyLogin(String userData) {
+		User user = null;
+		try {
+			JSONObject loginJson = new JSONObject(userData);
+			String userName = loginJson.optString("userName");
+			String password = loginJson.optString("password");
+			
+			List<User> userList = userRepository.findByUsername(userName);
+			if(userList.size() > 0) {
+				if(new BCryptPasswordEncoder().matches(password, userList.get(0).getPassword())) {
+					user = userList.get(0);
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	public List<User> getAllUsers() {

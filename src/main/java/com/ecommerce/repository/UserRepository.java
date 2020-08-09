@@ -14,7 +14,7 @@ import com.ecommerce.model.User;
 public interface UserRepository extends JpaRepository<User, String>{
 
 
-	User findByUsername(String username);
+	List<User> findByUsername(String username);
 
 	@Query("SELECT user from User user where user.role=:role")
 	List<User> findUserByRole(@Param("role")int role);

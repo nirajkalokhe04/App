@@ -49,8 +49,8 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/Customers/login")
-	public ResponseEntity<Customer> loginCustomer(@RequestParam String mobile, @RequestParam String password){
-		return new ResponseEntity<Customer>(customerService.loginCustomer(mobile, password), HttpStatus.OK);
+	public ResponseEntity<Customer> loginCustomer(@RequestBody String loginData){// @RequestParam String mobile, @RequestParam String password){
+		return new ResponseEntity<Customer>(customerService.loginCustomer(loginData), HttpStatus.OK);
 	}
 	
 	@PostMapping("sendOtp/{MobileNumber}")

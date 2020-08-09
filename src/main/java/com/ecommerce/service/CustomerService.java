@@ -56,24 +56,27 @@ public class CustomerService {
 		return "Customer deleted.";
 	}
 
-	public Customer loginCustomer(String mobile, String password) {
-		JSONObject returnJobj = new JSONObject();
-		long isValid = 0;
+	public Customer loginCustomer(String loginData) {
 		Customer customer = null;
-		List<Customer> customerList = customerRepository.findByMobile(mobile);
-		if(customerList.size() > 0) {
-			if(new BCryptPasswordEncoder().matches(password, customerList.get(0).getPassword())) {
-				isValid = 1;
-				customer = customerList.get(0);
-			}
-		}
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			returnJobj.put("isValid", isValid);
-			returnJobj.put("message", isValid > 0 ? "Valid customer" : "Invalid customer");
-			returnJobj.put("data", mapper.writeValueAsString(customer));
-			returnJobj.put("id", customer.getId());
-		} catch (JSONException | JsonProcessingException e) {
+			JSONObject loginJobj = new JSONObject(loginData);
+			String mobile = loginJobj.optString("mobile");
+			String password = loginJobj.optString("password");
+			long isValid = 0;
+			List<Customer> customerList = customerRepository.findByMobile(mobile);
+			if (customerList.size() > 0) {
+				if (new BCryptPasswordEncoder().matches(password, customerList.get(0).getPassword())) {
+					isValid = 1;
+					customer = customerList.get(0);
+				}
+			}
+
+//			ObjectMapper mapper = new ObjectMapper();
+//			returnJobj.put("isValid", isValid);
+//			returnJobj.put("message", isValid > 0 ? "Valid customer" : "Invalid customer");
+//			returnJobj.put("data", mapper.writeValueAsString(customer));
+//			returnJobj.put("id", customer.getId());
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return customer;

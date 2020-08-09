@@ -23,8 +23,8 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/login")
-	public ResponseEntity<HttpStatus> verifyLogin(@RequestBody String requestData){
-		return new ResponseEntity<HttpStatus>(userService.verifyLogin(requestData),HttpStatus.OK);
+	public ResponseEntity<User> verifyLogin(@RequestBody String requestData){
+		return new ResponseEntity<User>(userService.verifyLogin(requestData),HttpStatus.OK);
 	}
 	
 	@PostMapping("/forgotpassword")
