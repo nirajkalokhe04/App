@@ -18,6 +18,12 @@ public interface ItemRepository extends JpaRepository<Item, String> {
 	
 	@Query("SELECT it FROM Item it where it.itemName  like CONCAT('%',:ItemName,'%')")
 	List<Item> sarchByName(@Param("ItemName") String ItemName);
+	
+//	@Query("SELECT it FROM Item it where it.itemName =:ItemName")
+//	List<Item> sarchByName(@Param("ItemName")String ItemName);
+	
+	@Query("SELECT it from Item it inner join SubCategory sub on it.subCategory.id=sub.id where sub.category.id=:categoryId")
+	List<Item> ItemByCategory(@Param("categoryId")String categoryId);
 
 	@Query("SELECT it from Item it where it.subCategory.id in (select sub.id from SubCategory sub where sub.category.id=:categoryId)")
 	List<Item> itemByCategory(@Param("categoryId") String categoryId);
@@ -33,6 +39,6 @@ public interface ItemRepository extends JpaRepository<Item, String> {
 	@Query(value = "SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId")
 	public String[] itemGalleryById(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
 	
-	@Query(value ="SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId and ig.preference=1")
-	public String[] itemGalleryByIdPref(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
+	@Query(value = "SELECT concat(:imagePath,ig.galleryPath) as galleryPath FROM ItemGallery ig where ig.itemId =:itemId and ig.preference=1", nativeQuery = true)
+	String[] itemGalleryByIdPref(@Param("itemId")String itemId, @Param("imagePath")String imagePath);
 }
