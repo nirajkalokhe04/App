@@ -63,11 +63,16 @@ public class ItemService {
 	}
 	
 	public List<Category> getAllCategories() {
-		return categoryRepository.findAll();
+		
+		List<Category> categories = categoryRepository.findAll();
+		categories.forEach(ct -> ct.setImageName(imagePath+""+ct.getImageName()));
+		return categories;
 	}
 	
 	public List<SubCategory> getAllSubCategories() {
-		return subCategoryRepository.findAll();
+		List<SubCategory> subCategories = subCategoryRepository.findAll();
+		subCategories.forEach(st -> st.setImageName(imagePath+""+st.getImageName()));
+		return subCategories;
 	}
 	public String addSubCategory(JSONObject subCategoryJson) {
 		String returnStr = "Subcategory added sucessfully.";

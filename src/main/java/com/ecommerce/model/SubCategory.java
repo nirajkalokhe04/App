@@ -37,6 +37,9 @@ public class SubCategory {
 	@Column(name ="isactive", columnDefinition = "BOOLEAN")
 	private String isActive;
 	
+	@Column(name="imagename")
+	private String imageName;
+	
 	@ManyToOne
 	@JoinColumn(name = "categoryid")
 	private Category category;
@@ -98,12 +101,19 @@ public class SubCategory {
 		this.categoryLogo = categoryLogo;
 	}
 
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
 	@Override
 	public String toString() {
 		return "SubCategory [id=" + id + ", subcategotryName=" + subcategotryName + ", categoryName=" + categoryName
 				+ ", categoryLogo=" + categoryLogo + ", subcategoryDescription=" + subcategoryDescription
-				+ ", isActive=" + isActive + ", category=" + category + "]";
+				+ ", isActive=" + isActive + ", imageName=" + imageName + ", category=" + category + "]";
 	}
-	
 
 }

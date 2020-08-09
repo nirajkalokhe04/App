@@ -31,6 +31,9 @@ public class Category {
 	
 	@Column(name="subcategory_id")
 	private String subCategory;
+	
+	@Column(name="imagename")
+	private String imageName;
 
 	public String getId() {
 		return id;
@@ -64,14 +67,18 @@ public class Category {
 		this.isActive = isActive;
 	}
 
+	public String getImageName() {
+		return imageName;
+	}
 
-
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
 
 	@Override
 	public String toString() {
 		return "Category [id=" + id + ", categoryName=" + categoryName + ", categoryDescription=" + categoryDescription
-				+ ", isActive=" + isActive + ", subCategory=" + subCategory + "]";
+				+ ", isActive=" + isActive + ", subCategory=" + subCategory + ", imageName=" + imageName + "]";
 	}
-
 		
 }
