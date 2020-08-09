@@ -30,12 +30,12 @@ public class CustomerService {
 		return customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFound("Customer not exist."));
 	}
 	
-	public String addCustomer(Customer customer) {
+	public Integer addCustomer(Customer customer) {
 		String returnStr = "Customer added successfully.";
 		String pass = new BCryptPasswordEncoder().encode(customer.getPassword());
 		customer.setPassword(pass);
 		customer = customerRepository.save(customer);
-		return returnStr;
+		return 100;
 	}
 	
 	public String updateCustomer(String customerId, Customer customer) {

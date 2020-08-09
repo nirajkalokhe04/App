@@ -38,14 +38,15 @@ public class CartService {
 		return returnMsg;
 	}
 	
-	public String deleteCartItem(String itemId, String userId) {
+	public Integer deleteCartItem(String itemId, String userId) {
 		//TODO Check whether user is already having cart4
-		String returnMsg = "Item removed successfully."; 
+		//Mobile application requires 0/1
+		Integer returnMsg = 1; 
 		Cart cart = cartRepository.findCartByUserId(userId);
 		CartDetails existingCartDetails = cartDetailsRepository.findCartDetails(cart.getCartId(), itemId);
 		if(existingCartDetails.getItemId().equals(itemId)) {
-			existingCartDetails.setQuantity(existingCartDetails.getQuantity()-1);
-			existingCartDetails.setTotalPrice(existingCartDetails.getQuantity()*existingCartDetails.getItemPrice());
+//			existingCartDetails.setQuantity(existingCartDetails.getQuantity()-1);
+			existingCartDetails.setTotalPrice(existingCartDetails.getTotalPrice() -(existingCartDetails.getQuantity()*existingCartDetails.getItemPrice()));
 		}
 		if(cart.getCartTotal()-existingCartDetails.getItemPrice()>0) {
 			cart.setCartTotal(cart.getCartTotal()-existingCartDetails.getItemPrice());
@@ -94,7 +95,7 @@ public class CartService {
 		 return cd;
 	}
 
-	public String addCart(CartDetails cartDetails) {
+	public Integer addCart(CartDetails cartDetails) {
 //		Cart cart = getCart(cartDetails.getUserId());
 		Cart cart = cartRepository.findByUserId(cartDetails.getUserId());
 		String cartid=null;
@@ -105,7 +106,7 @@ public class CartService {
 		cartDetails.setCartId(cartid);
 		updateCartDetails(cartDetails, cartDetails.getUserId());
 		
-		return cartid;
+		return 1;
 		
 	}
 	private Cart createcartForUser(CartDetails cartDetails) {

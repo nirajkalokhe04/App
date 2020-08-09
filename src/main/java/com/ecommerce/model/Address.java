@@ -21,10 +21,14 @@ public class Address {
 	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
 	private String address;
+	private String  AddressLine;
+	private String landmark;
+	private String area;
 	private String userId;
 	private Integer addressType;
 	private Boolean isDefault;
 	private Integer pinCode;
+	private Integer Postalcode;
 	@OneToOne
 	private City city;
 
@@ -84,10 +88,43 @@ public class Address {
 		this.city = city;
 	}
 
+	public String getLandmark() {
+		return landmark;
+	}
+
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getAddressLine() {
+		return AddressLine;
+	}
+
+	public void setAddressLine(String addressLine) {
+		AddressLine = addressLine;
+	}
+
+	public Integer getPostalcode() {
+		return Postalcode;
+	}
+
+	public void setPostalcode(Integer postalcode) {
+		Postalcode = postalcode;
+	}
+
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", address=" + address + ", userId=" + userId + ", addressType=" + addressType
-				+ ", isDefault=" + isDefault + ", pinCode=" + pinCode + ", city=" + city + "]";
+		return "Address [id=" + id + ", address=" + address + ", AddressLine=" + AddressLine + ", landmark=" + landmark
+				+ ", area=" + area + ", userId=" + userId + ", addressType=" + addressType + ", isDefault=" + isDefault
+				+ ", pinCode=" + pinCode + ", Postalcode=" + Postalcode + ", city=" + city + "]";
 	}
 
 	

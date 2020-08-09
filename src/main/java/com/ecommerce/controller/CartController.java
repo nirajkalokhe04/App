@@ -33,14 +33,14 @@ public class CartController {
 		return new ResponseEntity<String>(cartService.addCart(cart, userId), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/cart")
-	public ResponseEntity<String> deleteCartdetails(String itemId,String userId){
-		return new ResponseEntity<String>(cartService.deleteCartItem(itemId, userId), HttpStatus.OK);
+	@DeleteMapping("/deletecartItem/{itemId}/{userId}")
+	public ResponseEntity<Integer> deleteCartdetails(@PathVariable String itemId,@PathVariable String userId){
+		return new ResponseEntity<Integer>(cartService.deleteCartItem(itemId, userId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/addCartItem")
-	public ResponseEntity<String> addCartDetails(@RequestBody CartDetails cart){
-		return new ResponseEntity<String>(cartService.addCart(cart), HttpStatus.OK);
+	public ResponseEntity<Integer> addCartDetails(@RequestBody CartDetails cart){
+		return new ResponseEntity<Integer>(cartService.addCart(cart), HttpStatus.OK);
 	}
 	
 	@GetMapping("getCartCoutbyUserID/{userId}")

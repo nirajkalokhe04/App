@@ -34,8 +34,8 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/Customers")
-	public ResponseEntity<String> addCustomer(@RequestBody Customer customer){
-		return new ResponseEntity<String>(customerService.addCustomer(customer), HttpStatus.ACCEPTED);
+	public ResponseEntity<Integer> addCustomer(@RequestBody Customer customer){
+		return new ResponseEntity<Integer>(customerService.addCustomer(customer), HttpStatus.OK);
 	}
 	
 	@PutMapping("/Customers/{customerId}")

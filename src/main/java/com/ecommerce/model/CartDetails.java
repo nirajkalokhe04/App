@@ -25,7 +25,7 @@ public class CartDetails {
 	@Column(name="cartid",columnDefinition = Constants.VARCHAR_32)
 	private String cartId;
 	
-	@Column(name="cartid",insertable = false, updatable = false)
+	@Column(name="itemid",insertable = false, updatable = false)
 	private String id;
 	
 	@Column(name="itemid",columnDefinition = Constants.VARCHAR_32)
@@ -36,6 +36,9 @@ public class CartDetails {
 	
 	@Column(name="price",columnDefinition = Constants.DOUBLE)
 	private Double itemPrice;
+	
+	@Column(name="itemname",columnDefinition = Constants.VARCHAR_32)
+	private String itemName;
 	
 	@Column(name="quantity",columnDefinition = "Integer Default 1")
 	private Integer quantity;
@@ -49,8 +52,7 @@ public class CartDetails {
 	@Column(name="isactive",columnDefinition = "BOOLEAN")
 	private Boolean isActive;
 	
-	private String itemName;
-	
+		
 	private String apiKey;
 	
 	private String userId;
@@ -153,6 +155,8 @@ public class CartDetails {
 	}
 
 	
+
+
 	public String getItemName() {
 		return itemName;
 	}
@@ -164,9 +168,9 @@ public class CartDetails {
 	@Override
 	public String toString() {
 		return "CartDetails [cartDetailId=" + cartDetailId + ", cartId=" + cartId + ", id=" + id + ", itemId=" + itemId
-				+ ", size=" + size + ", itemPrice=" + itemPrice + ", quantity=" + quantity + ", stocks=" + stocks
-				+ ", totalPrice=" + totalPrice + ", isActive=" + isActive + ", itemName=" + itemName + ", apiKey="
-				+ apiKey + ", userId=" + userId + "]";
+				+ ", size=" + size + ", itemPrice=" + itemPrice + ", itemName=" + itemName + ", quantity=" + quantity
+				+ ", stocks=" + stocks + ", totalPrice=" + totalPrice + ", isActive=" + isActive + ", apiKey=" + apiKey
+				+ ", userId=" + userId + "]";
 	}
 
 
