@@ -119,8 +119,8 @@ public class ItemService {
 		UnitMaster unitMaster = unitMasterRepository.findById(itemJson.optString("unitId")).get();
 		
 		ItemUnitMapping itemUnitMapping = new ItemUnitMapping();
-		itemUnitMapping.setItem(item);
-		itemUnitMapping.setUnitMaster(unitMaster);
+		itemUnitMapping.setItem(item.getId());
+		itemUnitMapping.setUnitMaster(unitMaster.getUnitId());
 		itemUnitMapping.setQuantity(itemJson.optDouble("quantity"));
 		itemUnitMapping.setPrice(itemJson.optDouble("unitPrice"));
 		
