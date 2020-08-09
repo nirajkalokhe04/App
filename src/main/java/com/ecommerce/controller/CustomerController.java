@@ -52,4 +52,14 @@ public class CustomerController {
 	public ResponseEntity<Customer> loginCustomer(@RequestParam String mobile, @RequestParam String password){
 		return new ResponseEntity<Customer>(customerService.loginCustomer(mobile, password), HttpStatus.OK);
 	}
+	
+	@PostMapping("sendOtp/{MobileNumber}")
+	public ResponseEntity<Integer> sendOtp(@PathVariable String MobileNumber){
+		return new ResponseEntity<Integer>(customerService.sendOtp(MobileNumber), HttpStatus.OK);
+	}
+	
+	@PostMapping("verifyOtp/{MobileNumber}/{Otp}")
+	public ResponseEntity<Integer> verifyOtp(@PathVariable String MobileNumber,@PathVariable String Otp){
+		return new ResponseEntity<Integer>(customerService.verifyOtp(MobileNumber,Otp), HttpStatus.OK);
+	}
 }

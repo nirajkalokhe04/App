@@ -78,4 +78,14 @@ public class CustomerService {
 		}
 		return customer;
 	}
+
+	public Integer sendOtp(String mobileNumber) {
+		// TODO Auto-generated method stub
+		return 111111;
+	}
+
+	public Integer verifyOtp(String mobileNumber, String otp) {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }

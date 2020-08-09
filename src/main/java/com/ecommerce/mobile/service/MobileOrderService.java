@@ -49,14 +49,14 @@ public class MobileOrderService {
 	
 	public Integer addAddress(Address address) {
 		// TODO Auto-generated method stub
-		address.setAddress("Dehuagon");
-		address.setAddressLine("Dehuroad");
-		address.setAddressType(2);
-		address.setArea("Shivaji Nagar");
-		address.setUserId("402881f273c8a6210173c8a8352e0000");
-		address.setPinCode(412101);
-		address.setLandmark("Ganesh MAndir");
-		 er.save(address);
+		if(address.getId()==null) {
+			er.save(address);
+			
+		}else {
+			Address add= er.findById(address.getId()).get();
+			er.save(add);
+			
+		}
 		 return 1;
 	}
 }
