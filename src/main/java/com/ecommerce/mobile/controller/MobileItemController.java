@@ -21,7 +21,7 @@ public class MobileItemController {
 
 	@GetMapping("getCategory")
 	public ResponseEntity<List<SubCategory>> getAllCategories() {
-		return new ResponseEntity<List<SubCategory>>(itemService.getAllCategoriesForMobile(), HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<SubCategory>>(itemService.getAllCategoriesForMobile(), HttpStatus.OK);
 	}
 	
 	/*
@@ -33,10 +33,10 @@ public class MobileItemController {
 	
 	@GetMapping("itemByCatId/{CategoryId}")
 	public ResponseEntity<List<Item>> getItemByCategory(@PathVariable String CategoryId){
-		return new ResponseEntity<List<Item>>(itemService.getItemByCategory(CategoryId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Item>>(itemService.getItemByCategory(CategoryId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/itemBySearchText/{SearchText}")
+	@GetMapping("itemBySearchText/{SearchText}")
 	public ResponseEntity<List<Item>> SearchItem(@PathVariable String SearchText){
 		return new ResponseEntity<List<Item>>(itemService.searchItem(SearchText),HttpStatus.ACCEPTED);
 	}

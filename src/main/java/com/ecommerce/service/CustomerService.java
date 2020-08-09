@@ -56,7 +56,7 @@ public class CustomerService {
 		return "Customer deleted.";
 	}
 
-	public String loginCustomer(String mobile, String password) {
+	public Customer loginCustomer(String mobile, String password) {
 		JSONObject returnJobj = new JSONObject();
 		long isValid = 0;
 		Customer customer = null;
@@ -72,9 +72,10 @@ public class CustomerService {
 			returnJobj.put("isValid", isValid);
 			returnJobj.put("message", isValid > 0 ? "Valid customer" : "Invalid customer");
 			returnJobj.put("data", mapper.writeValueAsString(customer));
+			returnJobj.put("id", customer.getId());
 		} catch (JSONException | JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return returnJobj.toString();
+		return customer;
 	}
 }

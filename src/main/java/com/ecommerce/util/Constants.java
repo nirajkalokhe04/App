@@ -9,7 +9,7 @@ public class Constants {
 	public final static String VARCHAR_128 = "VARCHAR(128)";
 	public final static String VARCHAR_255 = "VARCHAR(255)";
 	public final static String DOUBLE = "DOUBLE";
-	public final static Integer ORDER_CANCEL_STATUS =16;
+	public final static Integer ORDER_CANCEL_STATUS =0;
 	public final static Integer ORDER_DELIVERED_STATUS =4;
 	public final static Integer ORDER_REQUESTING_STATUS =1;
 	public final static Integer ORDER_PACKING_STATUS =2;

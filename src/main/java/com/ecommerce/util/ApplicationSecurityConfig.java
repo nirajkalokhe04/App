@@ -35,16 +35,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		http		
 		.csrf().disable()
-		.authorizeRequests().antMatchers("*").permitAll()
-//		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-//		.loginPage("/login").permitAll()
-		.and()
-		.logout().invalidateHttpSession(true)
-		.clearAuthentication(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/home").permitAll();
+		.authorizeRequests().antMatchers("/**").permitAll();
+//		http		
+//		.csrf().disable()
+//		.authorizeRequests().antMatchers("*").permitAll()
+////		.anyRequest().authenticated()
+//		.and()
+//		.formLogin()
+////		.loginPage("/login").permitAll()
+//		.and()
+//		.logout().invalidateHttpSession(true)
+//		.clearAuthentication(true)
+//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//		.logoutSuccessUrl("/home").permitAll();
 	}
 	
 	@Bean

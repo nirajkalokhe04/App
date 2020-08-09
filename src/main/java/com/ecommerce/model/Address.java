@@ -18,7 +18,7 @@ public class Address {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(columnDefinition =  Constants.VARCHAR_16)
+	@Column(columnDefinition =  Constants.VARCHAR_32)
 	private String id;
 	private String address;
 	private String userId;
@@ -26,7 +26,7 @@ public class Address {
 	private Boolean isDefault;
 	private Integer pinCode;
 	@OneToOne
-	private City cityId;
+	private City city;
 
 	public String getId() {
 		return id;
@@ -76,18 +76,20 @@ public class Address {
 		this.pinCode = pinCode;
 	}
 
-	public City getCityId() {
-		return cityId;
+	public City getCity() {
+		return city;
 	}
 
-	public void setCityId(City cityId) {
-		this.cityId = cityId;
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", address=" + address + ", userId=" + userId + ", addressType=" + addressType
-				+ ", isDefault=" + isDefault + ", pinCode=" + pinCode + ", cityId=" + cityId + "]";
+				+ ", isDefault=" + isDefault + ", pinCode=" + pinCode + ", city=" + city + "]";
 	}
+
+	
 
 }

@@ -21,4 +21,7 @@ public interface CartDetailsRepository extends JpaRepository<CartDetails, String
 	
 	List<CartDetails> findByCartId(String cartId);
 	
+	@Query("SELECT t, (SELECT Itm.itemName FROM Item Itm WHERE Itm.id= t.itemId) as itemName FROM  CartDetails t where t.userId = :userId")
+	List<CartDetails>  findByUserId(String userId);
+	
 }

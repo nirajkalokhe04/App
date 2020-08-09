@@ -3,12 +3,12 @@ package com.ecommerce.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.model.Cart;
+import com.ecommerce.model.CartDetails;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, String> {
@@ -20,7 +20,12 @@ public interface CartRepository extends JpaRepository<Cart, String> {
 	  @Query("FROM  Cart t where t.userId = :userId") 
 	    Cart findCartByUserId(@Param("userId") String userId);
 	  
-	  @Query("FROM  Cart t "
-		  		+ "inner join CartDetails u on t.cartId = u.cartId where t.userId = :userId") 
-		    List<Cart> findCartDetailsByUserId(@Param("userId") String userId);
+	  @Query(" FROM  Cart t "
+		  		+ "inner join CartDetails u on t.cartId = u.cartId where t.userId = :userId group by t.id") 
+	  List<Cart> findCartDetailsByUserId(@Param("userId") String userId);
+	  
+	  Cart findByUserId(String userId);
+	  
+	  
+	  
 }

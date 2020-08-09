@@ -35,7 +35,7 @@ public class Cart {
 	@Column(name="total", columnDefinition = Constants.DOUBLE)
 	private Double cartTotal;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
     @JoinColumn(name = "cartid", referencedColumnName = "id")
     private List<CartDetails> cartDetails;
 

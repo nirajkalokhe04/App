@@ -49,7 +49,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/Customers/login")
-	public ResponseEntity<String> loginCustomer(@RequestParam String mobile, @RequestParam String password){
-		return new ResponseEntity<String>(customerService.loginCustomer(mobile, password), HttpStatus.OK);
+	public ResponseEntity<Customer> loginCustomer(@RequestParam String mobile, @RequestParam String password){
+		return new ResponseEntity<Customer>(customerService.loginCustomer(mobile, password), HttpStatus.OK);
 	}
 }

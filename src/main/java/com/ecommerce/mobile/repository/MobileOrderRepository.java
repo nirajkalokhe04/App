@@ -12,7 +12,7 @@ import com.ecommerce.model.Orders;
 @Repository
 public interface  MobileOrderRepository extends JpaRepository<Orders, String>{
 
-	@Query("from Orders orders where orders.user.id =:userId")
+	@Query("from Orders orders where orders.customer.id =:userId")
 	List<Orders> getAllUserOrders(@Param("userId") String userId);
 
 }

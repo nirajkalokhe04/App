@@ -64,8 +64,20 @@ public class OrderController {
 	}
 	
 	@GetMapping("/CheckAreaDeliverable/{Pincode}")
-	public ResponseEntity<Integer> checkPinCode(@PathVariable Integer Pincode){
+	public ResponseEntity<Integer> checkPinCode(@PathVariable String Pincode){
 		return new ResponseEntity<Integer>(orderService.checkPinCode(Pincode), HttpStatus.OK);
 	}
 	
+	@PutMapping("/orders/delivery/status")
+	public ResponseEntity<String> updateOrderStatus(@RequestBody String deliveryStatus){
+		JSONObject deliveryStatusJson;
+		String responseStr = "";
+		try {
+			deliveryStatusJson = new JSONObject(deliveryStatus);
+			responseStr = orderService.updateOrderStatus(deliveryStatusJson);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(responseStr, HttpStatus.OK);
+	}
 }

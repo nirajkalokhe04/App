@@ -48,11 +48,14 @@ public class Item {
 	@Column(name="saleprice", insertable = false, updatable = false)
 	private double offerPrice;
 	
+	@Column(name="quantity", columnDefinition = "INTEGER")
+	private Integer quantity;
+		
 	@Column(name="isavailable", columnDefinition = "Boolean")
-	private Boolean isAvailable;
+	private Integer isAvailable;
 	
 	@Column(name="isavailable", insertable = false, updatable = false)
-	private Boolean isExists;
+	private Integer isExists;
 	
 	@Column(name="istaxable", columnDefinition = "Boolean")
 	private Boolean isTaxable;
@@ -61,7 +64,7 @@ public class Item {
 	private Boolean isDashboard;
 	
 	@Column(name="isactive", columnDefinition = "Boolean")
-	private Boolean isActive; 
+	private Integer isActive; 
 	
 	@Column(name ="itemunit", columnDefinition =  Constants.VARCHAR_16)
 	private String itemUnit;
@@ -72,6 +75,9 @@ public class Item {
 	@OneToOne
 	@JoinColumn(name = "subcategoryid")
 	private SubCategory subCategory;
+	
+//	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+//    private Set<ItemUnitMapping> itemUnitMapping = new HashSet<>();
 	
 	public String getId() {
 		
@@ -104,10 +110,10 @@ public class Item {
 	public void setSalePrice(double salePrice) {
 		this.salePrice = salePrice;
 	}
-	public Boolean getIsAvailable() {
+	public Integer getIsAvailable() {
 		return isAvailable;
 	}
-	public void setIsAvailable(Boolean isAvailable) {
+	public void setIsAvailable(Integer isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 	public Boolean getIsTaxable() {
@@ -137,10 +143,10 @@ public class Item {
 		this.itemImages = itemImages;
 	}
 	
-	public Boolean getIsActive() {
+	public Integer getIsActive() {
 		return isActive;
 	}
-	public void setIsActive(Boolean isActive) {
+	public void setIsActive(Integer isActive) {
 		this.isActive = isActive;
 	}
 	public String getItemUnit() {
@@ -163,10 +169,10 @@ public class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Boolean getIsExists() {
+	public Integer getIsExists() {
 		return isExists;
 	}
-	public void setIsExists(Boolean isExists) {
+	public void setIsExists(Integer isExists) {
 		this.isExists = isExists;
 	}
 	public double getOfferPrice() {
@@ -175,13 +181,29 @@ public class Item {
 	public void setOfferPrice(double offerPrice) {
 		this.offerPrice = offerPrice;
 	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	
+	
+	
+//	public Set<ItemUnitMapping> getItemUnitMapping() {
+//		return itemUnitMapping;
+//	}
+//	public void setItemUnitMapping(Set<ItemUnitMapping> itemUnitMapping) {
+//		this.itemUnitMapping = itemUnitMapping;
+//	}
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", description="
 				+ description + ", regularPrice=" + regularPrice + ", price=" + price + ", salePrice=" + salePrice
-				+ ", offerPrice=" + offerPrice + ", isAvailable=" + isAvailable + ", isExists=" + isExists
-				+ ", isTaxable=" + isTaxable + ", isDashboard=" + isDashboard + ", isActive=" + isActive + ", itemUnit="
-				+ itemUnit + ", itemImages=" + Arrays.toString(itemImages) + ", subCategory=" + subCategory + "]";
+				+ ", offerPrice=" + offerPrice + ", quantity=" + quantity + ", isAvailable=" + isAvailable
+				+ ", isExists=" + isExists + ", isTaxable=" + isTaxable + ", isDashboard=" + isDashboard + ", isActive="
+				+ isActive + ", itemUnit=" + itemUnit + ", itemImages=" + Arrays.toString(itemImages) + ", subCategory="
+				+ subCategory + "]";
 	}
 	
 }
