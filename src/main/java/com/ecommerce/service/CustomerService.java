@@ -1,11 +1,15 @@
 package com.ecommerce.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,7 @@ import com.ecommerce.exception.CustomerNotFound;
 import com.ecommerce.exception.UserNotFound;
 import com.ecommerce.model.Customer;
 import com.ecommerce.repository.CustomerRepository;
+import com.ecommerce.util.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,6 +26,9 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
@@ -114,5 +122,58 @@ public class CustomerService {
 	public Integer verifyOtp(String mobileNumber, String otp) {
 		// TODO Auto-generated method stub
 		return 1;
+	}
+
+	public String forgotPassword(String mailId) {
+		String responseStr = "";
+		
+		Optional<Customer> customerObj = customerRepository.findByEmail(mailId);
+		
+		if (customerObj.isPresent()) {
+			String token = UUID.randomUUID().toString();
+			Customer customer = customerObj.get();
+			customer.setResetToken(token);
+			customer = customerRepository.save(customer);
+
+			// Email message
+			SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+			passwordResetEmail.setFrom("support@demo.com");
+			passwordResetEmail.setTo(customer.getEmail());
+			passwordResetEmail.setSubject("Password Reset Request");
+			passwordResetEmail.setText("To reset your password, click the link below:\n" + Constants.baseURL + "/reset?token="
+					+ customer.getResetToken());
+
+			emailService.sendEmail(passwordResetEmail);
+
+			responseStr = "Password reset link is shared on your email";
+		} else {
+			responseStr = "No customer found with given Email ID.";
+		}
+		
+		return responseStr;
+	}
+
+	public String resetPassword(String resetJson) {
+		String responseStr = "";
+		try {
+
+			JSONObject jobj = new JSONObject(resetJson);
+			String token = jobj.optString("token");
+			String password = jobj.optString("password");
+
+			Optional<Customer> customerObj = customerRepository.findByResetToken(token);
+
+			if (customerObj.isPresent()) {
+				Customer customer = customerObj.get();
+				customer.setPassword(new BCryptPasswordEncoder().encode(password));
+				customerRepository.save(customer);
+				responseStr = "Your password is reset successfully.";
+			} else {
+				responseStr = "Token is not valid.";
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return responseStr;
 	}
 }

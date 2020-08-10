@@ -23,6 +23,18 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@PostMapping("/Customers/forgotpassword/{mailId}")
+	public ResponseEntity<String> forgotPassword(@PathVariable String mailId){
+		String responseStr = customerService.forgotPassword(mailId);
+		return new ResponseEntity<String>(responseStr, HttpStatus.OK);
+	}
+	
+	@PostMapping("/Customers/reset")
+	public ResponseEntity<String> resetPassword(@RequestBody String resetJson){
+		String responseStr = customerService.resetPassword(resetJson);
+		return new ResponseEntity<String>(responseStr, HttpStatus.OK);
+	}
+	
 	@GetMapping("/Customers")
 	public ResponseEntity<List<Customer>> getAllCustomers(){
 		return new ResponseEntity<List<Customer>>(customerService.getAllCustomers(), HttpStatus.OK);

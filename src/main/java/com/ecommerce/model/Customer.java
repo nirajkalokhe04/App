@@ -27,6 +27,8 @@ public class Customer {
 	private String password;
 	@Column(name = "isdeleted")
 	private boolean isDeleted;
+	@Column(name = "reset_token")
+	private String resetToken;
 	
 	public String getId() {
 		return id;
@@ -63,6 +65,12 @@ public class Customer {
 	}
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	public String getResetToken() {
+		return resetToken;
+	}
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
 	}
 	@Override
 	public String toString() {

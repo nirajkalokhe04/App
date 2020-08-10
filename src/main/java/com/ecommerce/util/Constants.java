@@ -14,7 +14,8 @@ public class Constants {
 	public final static Integer ORDER_REQUESTING_STATUS =1;
 	public final static Integer ORDER_PACKING_STATUS =2;
 	public final static Integer ORDER_ON_THE_WAY_STATUS =3;
-
+	public final static String baseURL = "http://localhost:8080";
+//	public final static String baseURL = "http://15.207.97.62:8080";
 	
 
 }
