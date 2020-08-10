@@ -48,6 +48,10 @@ public class CustomerController {
 		return new ResponseEntity<String>(customerService.deleteCustomer(customerId),HttpStatus.OK);
 	}
 	
+	@PostMapping("/Customer/login")
+	public ResponseEntity<Customer> loginCustomer(@RequestParam String mobile, @RequestParam String password){
+		return new ResponseEntity<Customer>(customerService.loginCustomer(mobile, password), HttpStatus.OK);
+	}
 	@PostMapping("/Customers/login")
 	public ResponseEntity<Customer> loginCustomer(@RequestBody String loginData){// @RequestParam String mobile, @RequestParam String password){
 		return new ResponseEntity<Customer>(customerService.loginCustomer(loginData), HttpStatus.OK);

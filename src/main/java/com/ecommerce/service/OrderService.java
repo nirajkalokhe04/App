@@ -60,8 +60,8 @@ public class OrderService {
 	public String addOrder(JSONObject orderJson) {
 		String customerId = orderJson.optString("customerId");
 		double totalAmount = orderJson.optDouble("totalAmount");
-		int isDeleted = orderJson.optInt("isDeleted");
-		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer");
+		int isDeleted = orderJson.optInt("isDeleted",0);
+		int isDeletedFromCustomer = orderJson.optInt("isDeletedFromCustomer",0);
 		String addressId = orderJson.optString("addressId");
 		String userId = orderJson.optString("userId");
 		String cartId = orderJson.optString("cartId", "");
@@ -69,14 +69,14 @@ public class OrderService {
 		Date orderedOn = new Date();
 		String orderNumber = "";
 
-		synchronized (this) {
-			orderNumber = this.generateOrderNumber();
+		
 			Orders order = new Orders();
-			order.setOrderNumber(orderNumber);
+//			order.setOrderNumber(orderNumber);
 			order.setTotalAmount(totalAmount);
 			order.setIsDeleted(isDeleted);
 			order.setIsDeletedFromCustomer(isDeletedFromCustomer);
 			order.setOrderedOn(orderedOn);
+			order.setAddress(addressId);
 
 			Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFound("Customer not found."));
 			order.setCustomer(customer);
@@ -104,12 +104,15 @@ public class OrderService {
 
 				orderDetailRepository.save(orderDetail);
 			}
-//			cartDetailsRepository.findByCartId(cartId).stream().forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
+			synchronized (this) {
+				orderNumber = this.generateOrderNumber();
+				order.setOrderNumber(orderNumber);
+				order = orderRepository.save(order);
+			}
 			if(!cartId.equals("")){
 				cartDetailsRepository.findByCartId(cartId).forEach(cartDetails -> cartDetailsRepository.delete(cartDetails));
 				cartRepository.deleteById(cartId);
 			}
-		}
 		return orderNumber;
 	}
 	

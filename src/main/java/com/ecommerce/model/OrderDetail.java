@@ -24,6 +24,7 @@ public class OrderDetail {
 	private String id;
 	@OneToOne
 	private Item item;
+	
 	private double price;
 	private double quantity;
 
@@ -72,7 +73,10 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", order=" + "]";
+		return "{id=" + id + ", item=" + item + ", price=" + price + ", quantity=" + quantity + ", order="
+				+ order + "}";
 	}
+
+
 
 }

@@ -82,6 +82,30 @@ public class CustomerService {
 		return customer;
 	}
 
+	public Customer loginCustomer(String mobile, String password) {
+		JSONObject returnJobj = new JSONObject();
+		long isValid = 0;
+		Customer customer = null;
+		List<Customer> customerList = customerRepository.findByMobile(mobile);
+		if(customerList.size() > 0) {
+			if(new BCryptPasswordEncoder().matches(password, customerList.get(0).getPassword())) {
+				isValid = 1;
+				customer = customerList.get(0);
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				returnJobj.put("isValid", isValid);
+				returnJobj.put("message", isValid > 0 ? "Valid customer" : "Invalid customer");
+				returnJobj.put("data", mapper.writeValueAsString(customer));
+				returnJobj.put("id", customer.getId());
+			} catch (JSONException | JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return customer;
+		}
 	public Integer sendOtp(String mobileNumber) {
 		// TODO Auto-generated method stub
 		return 111111;

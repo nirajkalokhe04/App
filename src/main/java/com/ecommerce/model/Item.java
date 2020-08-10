@@ -192,6 +192,15 @@ public class Item {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+	@Override
+	public String toString() {
+		return "{id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", description="
+				+ description + ", regularPrice=" + regularPrice + ", price=" + price + ", salePrice=" + salePrice
+				+ ", offerPrice=" + offerPrice + ", quantity=" + quantity + ", isAvailable=" + isAvailable
+				+ ", isExists=" + isExists + ", isTaxable=" + isTaxable + ", isDashboard=" + isDashboard + ", isActive="
+				+ isActive + ", itemUnit=" + itemUnit + ", itemImages=" + Arrays.toString(itemImages) + ", subCategory="
+				+ subCategory + "}";
+	}
 	
 	
 	
@@ -201,14 +210,6 @@ public class Item {
 //	public void setItemUnitMapping(Set<ItemUnitMapping> itemUnitMapping) {
 //		this.itemUnitMapping = itemUnitMapping;
 //	}
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", description="
-				+ description + ", regularPrice=" + regularPrice + ", price=" + price + ", salePrice=" + salePrice
-				+ ", offerPrice=" + offerPrice + ", quantity=" + quantity + ", isAvailable=" + isAvailable
-				+ ", isExists=" + isExists + ", isTaxable=" + isTaxable + ", isDashboard=" + isDashboard + ", isActive="
-				+ isActive + ", itemUnit=" + itemUnit + ", itemImages=" + Arrays.toString(itemImages) + ", subCategory="
-				+ subCategory + "]";
-	}
+
 	
 }

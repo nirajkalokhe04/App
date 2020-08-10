@@ -38,6 +38,11 @@ public class CartController {
 		return new ResponseEntity<Integer>(cartService.deleteCartItem(itemId, userId), HttpStatus.OK);
 	}
 	
+	@PostMapping("/deletecartItem/{itemId}/{userId}")
+	public ResponseEntity<Integer> deleteCartdetailsWeb(@PathVariable String itemId,@PathVariable String userId){
+		return new ResponseEntity<Integer>(cartService.deleteCartItem(itemId, userId), HttpStatus.OK);
+	}
+	
 	@PostMapping("/addCartItem")
 	public ResponseEntity<Integer> addCartDetails(@RequestBody CartDetails cart){
 		return new ResponseEntity<Integer>(cartService.addCart(cart), HttpStatus.OK);

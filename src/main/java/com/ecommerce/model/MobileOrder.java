@@ -36,10 +36,10 @@ public class MobileOrder {
 	private Integer taxAmount;
 	@SerializedName("totalAmount")
 	@Expose
-	private Integer totalAmount;
+	private Double totalAmount;
 	@SerializedName("userId")
 	@Expose
-	private String userId;
+	private String userId;	
 
 	public Integer getDeliveryCharge() {
 		return deliveryCharge;
@@ -113,11 +113,11 @@ public class MobileOrder {
 		this.taxAmount = taxAmount;
 	}
 
-	public Integer getTotalAmount() {
+	public Double getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(Integer totalAmount) {
+	public void setTotalAmount(Double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 
@@ -131,10 +131,10 @@ public class MobileOrder {
 
 	@Override
 	public String toString() {
-		return "MobileOrder [deliveryCharge=" + deliveryCharge + ", deliverySlot=" + deliverySlot + ", itemAmount="
+		return "{deliveryCharge=" + deliveryCharge + ", deliverySlot=" + deliverySlot + ", itemAmount="
 				+ itemAmount + ", items=" + items + ", orderAddress=" + orderAddress + ", orderAmount=" + orderAmount
 				+ ", orderType=" + orderType + ", status=" + status + ", taxAmount=" + taxAmount + ", totalAmount="
-				+ totalAmount + ", userId=" + userId + "]";
+				+ totalAmount + ", userId=" + userId + "}";
 	}
 
 

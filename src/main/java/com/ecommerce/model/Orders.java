@@ -62,10 +62,8 @@ public class Orders {
 	@JoinColumn(name = "userid")
 	private User user;
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "addressid")
-	private Address addressId;
+	@Column(name = "address"  , columnDefinition = Constants.VARCHAR_255)
+	private String address;
 	
 	@ManyToOne
 	@JoinColumn(name = "userid",insertable = false, updatable = false)
@@ -116,12 +114,13 @@ public class Orders {
 		this.user = user;
 	}
 
-	public Address getAddressId() {
-		return addressId;
+
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressId(Address addressId) {
-		this.addressId = addressId;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Integer getStatus() {
@@ -222,12 +221,12 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", orderNumber=" + orderNumber + ", deliverySlot=" + deliverySlot + ", status="
+		return "{id=" + id + ", orderNumber=" + orderNumber + ", deliverySlot=" + deliverySlot + ", status="
 				+ status + ", isDeleted=" + isDeleted + ", isDeletedFromCustomer=" + isDeletedFromCustomer
 				+ ", totalAmount=" + totalAmount + ", deliveryCharge=" + deliveryCharge + ", orderedOn=" + orderedOn
-				+ ", customer=" + customer + ", user=" + user + ", addressId=" + addressId + ", deliveryBoy="
+				+ ", customer=" + customer + ", user=" + user + ", addressId=" + address + ", deliveryBoy="
 				+ deliveryBoy + ", transaction_id=" + transaction_id + ", orderAmount=" + orderAmount + ", orderAt="
-				+ orderAt + "]";
+				+ orderAt + "}";
 	}
 
 }

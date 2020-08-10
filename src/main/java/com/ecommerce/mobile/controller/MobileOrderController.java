@@ -46,14 +46,8 @@ public class MobileOrderController {
 
 	
 	@PostMapping("placeOrder/")
-	public ResponseEntity<Integer> addOrder(@RequestBody MobileOrder Orders) {
-		JSONObject orderJson;
-		String responseStr = "";
-		try {
-			responseStr="122";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+	public ResponseEntity<String> addOrder(@RequestBody MobileOrder Orders) {
+		
+		return new ResponseEntity<String>(orderService.placeOrder(Orders), HttpStatus.OK);
 	}
 }
